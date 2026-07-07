@@ -20,7 +20,7 @@ window.MathJax = {
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--fn);background:var(--bg);color:var(--tx);line-height:1.72;overflow-x:hidden}
+body{font-family:var(--fn);background:var(--bg);color:var(--tx);line-height:1.72}
 /* NAV */
 nav{
   position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--br);
@@ -135,6 +135,10 @@ tr:hover td{background:var(--bg3)}
 .exam-controls button{padding:8px 20px;border-radius:8px;border:1px solid var(--br);background:var(--bg3);color:var(--tx);cursor:pointer;font-size:.85rem;transition:.15s}
 .exam-controls button:hover{background:var(--ac);color:#fff}
 .exam-controls button:disabled{opacity:.4;cursor:not-allowed}
+/* GLOBAL IMG + TEXT OVERFLOW PROTECTION */
+img{max-width:100%!important;height:auto!important}
+.crd,.exam-card,.wdg,.eq-text,.exam-fb{overflow-wrap:break-word;word-wrap:break-word}
+.crd code,.math,pre{word-break:break-word;overflow-wrap:anywhere}
 /* TABLE SCROLL WRAPPER */
 .table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0}
 .table-responsive table{min-width:520px}
