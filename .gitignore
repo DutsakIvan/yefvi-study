@@ -1,0 +1,9 @@
+# Build/debug scripts
+*.py
+
+# Debug screenshots
+screenshot_*.png
+
+# Intermediate/temp artifacts
+extracted.js
+exam_data.js

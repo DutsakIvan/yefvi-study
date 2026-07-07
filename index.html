@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЄФВІ ІТ — Повний інтерактивний підручник</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]'],['\\begin{gather*}','\\end{gather*}'],['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+<style>
+:root{
+  --bg:#0f1119;--bg2:#1a1d2e;--bg3:#242840;--tx:#e2e8f0;--tx2:#94a3b8;
+  --ac:#3b82f6;--ac2:#60a5fa;--gr:#22c55e;--rd:#ef4444;--yw:#eab308;
+  --pu:#a855f7;--or:#f97316;--br:#2d3148;--r:12px;--rs:8px;
+  --sh:0 4px 24px rgba(0,0,0,.35);--fn:system-ui,sans-serif;--mo:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--fn);background:var(--bg);color:var(--tx);line-height:1.72;overflow-x:hidden}
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--br);
+  display:flex;gap:3px;padding:0 14px;overflow-x:auto;height:48px;align-items:center;
+  -webkit-overflow-scrolling:touch
+}
+nav a{color:var(--tx2);text-decoration:none;font-size:.76rem;padding:5px 11px;border-radius:18px;white-space:nowrap;font-weight:500;transition:.2s}
+nav a:hover,nav a.active{background:var(--ac);color:#fff}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 80px}
+.sec{margin-bottom:56px}
+.sec h2{font-size:1.55rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec h2 .badge{font-size:.68rem;padding:3px 9px;border-radius:20px;background:var(--ac);color:#fff;font-weight:600}
+.sec .sub{color:var(--tx2);font-size:.84rem;margin-bottom:18px}
+.crd{background:var(--bg2);border:1px solid var(--br);border-radius:var(--r);padding:28px;margin-bottom:20px;box-shadow:var(--sh)}
+.crd h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;color:var(--ac2)}
+.crd h3 .lvl{font-size:.62rem;padding:2px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;font-weight:600}
+.lvl-B{background:#065f4633;color:var(--gr)}.lvl-C{background:#92400e33;color:var(--yw)}.lvl-A{background:#1d4ed833;color:var(--ac2)}
+.crd h4{font-size:.95rem;font-weight:600;margin:16px 0 6px;color:var(--tx)}
+.crd p{margin-bottom:7px;color:var(--tx2);font-size:.9rem}
+.crd ul, .crd ol{margin:6px 0;padding-left:20px;color:var(--tx2);font-size:.88rem}
+.crd li{margin-bottom:4px}
+.tag{display:inline-block;background:var(--bg3);color:var(--ac2);padding:2px 8px;border-radius:4px;font-weight:600;font-size:.8rem;margin:2px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.83rem}
+th{background:var(--bg3);padding:10px 12px;text-align:left;font-weight:600;border-bottom:2px solid var(--br)}
+td{padding:9px 12px;border-bottom:1px solid var(--br)}
+tr:hover td{background:var(--bg3)}
+/* WIDGET */
+.wdg{background:var(--bg);border:1px solid var(--br);border-radius:var(--rs);padding:18px;margin:14px 0}
+.wdg h4{font-size:.9rem;font-weight:700;margin-bottom:10px;color:var(--tx)}
+.wdg .ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.wdg button{padding:7px 14px;border-radius:6px;border:1px solid var(--br);background:var(--bg3);color:var(--tx);cursor:pointer;font-size:.8rem;font-family:var(--fn);transition:.15s}
+.wdg button:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.wdg button.ac{background:var(--ac);color:#fff;border-color:var(--ac)}
+.wdg button.danger{background:var(--rd);color:#fff;border-color:var(--rd)}
+.wdg input[type=text],.wdg input[type=number],.wdg select{padding:7px 10px;border-radius:6px;border:1px solid var(--br);background:var(--bg3);color:var(--tx);font-size:.82rem;font-family:var(--fn);outline:none}
+.wdg input:focus,.wdg select:focus{border-color:var(--ac)}
+.wdg label{font-size:.8rem;color:var(--tx2)}
+/* SVG Diagrams */
+.diagram{margin:16px 0;padding:16px;background:var(--bg);border-radius:var(--rs);text-align:center;overflow-x:auto}
+.diagram svg{max-width:100%}
+.diagram-cap{font-size:.76rem;color:var(--tx2);margin-top:6px;font-style:italic}
+/* SORT */
+.sort-bars{display:flex;align-items:flex-end;gap:2px;height:180px;padding:0 2px}
+.sort-bars>div{flex:1;display:flex;flex-direction:column;align-items:center;min-width:12px}
+.sort-bars span{font-size:.58rem;color:var(--tx2);margin-bottom:2px;font-family:var(--mo)}
+.sort-bars .bar{width:100%;border-radius:2px 2px 0 0;transition:height .25s ease,background .2s;background:var(--ac)}
+/* BITS */
+.bits-row{display:flex;gap:3px;flex-wrap:wrap;margin:8px 0}
+.bit{width:42px;height:50px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mo);font-size:.85rem;font-weight:700;cursor:pointer;transition:.15s;user-select:none}
+.bit.on{background:var(--ac);color:#fff}.bit.off{background:var(--bg3);color:var(--tx2)}
+.bit .pow{font-size:.5rem;opacity:.6;margin-top:1px}
+/* PROB */
+.prob-chart{display:flex;align-items:flex-end;gap:1px;height:150px;margin-top:10px}
+.prob-col{flex:1;border-radius:2px 2px 0 0;background:var(--ac);min-width:12px;transition:height .3s}
+/* SUBNET */
+.sub-r{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px}
+.sub-i{background:var(--bg3);padding:10px;border-radius:var(--rs)}
+.sub-i .lbl{font-size:.68rem;color:var(--tx2);text-transform:uppercase;margin-bottom:2px}
+.sub-i .val{font-size:.95rem;font-weight:700;font-family:var(--mo);color:var(--ac2)}
+/* QUIZ */
+.quiz-q{background:var(--bg3);border-radius:var(--rs);padding:18px;margin:10px 0;border-left:3px solid var(--ac)}
+.quiz-q .q{font-weight:600;margin-bottom:10px;font-size:.9rem}
+.quiz-o{display:flex;flex-direction:column;gap:5px}
+.quiz-o label{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:.84rem;color:var(--tx2);transition:.15s;border:1px solid transparent}
+.quiz-o label:hover{background:var(--bg2);border-color:var(--br)}
+.quiz-o input[type=radio]{accent-color:var(--ac)}
+.quiz-o label.ok{background:#065f4622;border-color:var(--gr);color:var(--gr)}
+.quiz-o label.bad{background:#7f1d1d22;border-color:var(--rd);color:var(--rd)}
+.quiz-fb{font-size:.8rem;margin-top:8px;padding:8px 12px;border-radius:6px;display:none}
+.quiz-fb.show{display:block}.quiz-fb.ok{background:#065f4622;color:var(--gr)}.quiz-fb.bad{background:#7f1d1d22;color:var(--rd)}
+/* NN */
+.nn-c canvas{border:1px solid var(--br);border-radius:var(--rs);background:#000;cursor:crosshair;display:block;max-width:100%}
+/* INFO */
+.info{padding:12px 16px;border-radius:var(--rs);margin:10px 0;font-size:.82rem;border-left:3px solid var(--ac);background:var(--bg3)}
+.info.w{border-color:var(--yw)}.info.g{border-color:var(--gr)}
+.math{font-family:var(--mo);background:var(--bg3);padding:2px 5px;border-radius:3px;font-size:.85em}
+/* TABS */
+.tab-bar{display:flex;gap:0;background:var(--bg2);border-bottom:2px solid var(--br);position:sticky;top:48px;z-index:99}
+.tab-btn{padding:10px 24px;font-size:.9rem;font-weight:600;color:var(--tx2);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:.2s;font-family:var(--fn)}
+.tab-btn:hover{color:var(--tx)}
+.tab-btn.active{color:var(--ac2);border-bottom-color:var(--ac)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+/* EXAM */
+.exam-wrap{max-width:900px;margin:0 auto;padding:20px}
+.exam-header{text-align:center;margin-bottom:20px}
+.exam-header h2{font-size:1.4rem;font-weight:800;margin-bottom:4px}
+.exam-header p{color:var(--tx2);font-size:.85rem}
+.exam-stats{display:flex;justify-content:center;gap:20px;margin:10px 0}
+.exam-stat{background:var(--bg3);padding:8px 16px;border-radius:8px;font-size:.8rem}
+.exam-stat b{color:var(--ac2);font-size:1.1rem}
+.exam-nav{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:12px 0;max-width:900px}
+.exam-nav button{width:32px;height:32px;border:1px solid var(--br);background:var(--bg3);color:var(--tx2);border-radius:6px;cursor:pointer;font-size:.75rem;transition:.15s}
+.exam-nav button:hover{background:var(--ac);color:#fff}
+.exam-nav button.cur{background:var(--ac);color:#fff;border-color:var(--ac)}
+.exam-nav button.done{background:#065f4633;border-color:var(--gr);color:var(--gr)}
+.exam-nav button.wrong{background:#7f1d1d33;border-color:var(--rd);color:var(--rd)}
+.exam-card{background:var(--bg2);border:1px solid var(--br);border-radius:var(--r);padding:24px;margin:16px 0;box-shadow:var(--sh)}
+.exam-card .eq-num{font-size:.75rem;color:var(--tx2);margin-bottom:8px}
+.exam-card .eq-text{font-size:1rem;color:var(--tx);margin-bottom:16px;line-height:1.6}
+.exam-opt{display:block;padding:12px 16px;margin:8px 0;border:1px solid var(--br);border-radius:8px;cursor:pointer;transition:.15s;font-size:.9rem;color:var(--tx2);overflow:visible;min-height:44px}
+.exam-opt img{display:block;max-width:100%;background:#fff;padding:8px;border-radius:6px;margin:6px 0;box-sizing:content-box}
+.exam-opt:hover{background:var(--bg3);border-color:var(--ac)}
+.exam-opt.sel{background:var(--bg3);border-color:var(--ac);color:var(--tx)}
+.exam-opt.correct{background:#065f4622;border-color:var(--gr);color:var(--gr)}
+.exam-opt.wrong{background:#7f1d1d22;border-color:var(--rd);color:var(--rd)}
+.exam-fb{margin-top:14px;padding:14px 16px;border-radius:8px;font-size:.85rem;line-height:1.7;display:none}
+.exam-fb.show{display:block}
+.exam-fb.ok{background:#065f4622;border-left:3px solid var(--gr)}
+.exam-fb.bad{background:#7f1d1d22;border-left:3px solid var(--rd)}
+.exam-controls{display:flex;justify-content:space-between;margin-top:16px}
+.exam-controls button{padding:8px 20px;border-radius:8px;border:1px solid var(--br);background:var(--bg3);color:var(--tx);cursor:pointer;font-size:.85rem;transition:.15s}
+.exam-controls button:hover{background:var(--ac);color:#fff}
+.exam-controls button:disabled{opacity:.4;cursor:not-allowed}
+/* RESPONSIVE */
+@media(max-width:768px){
+  .wrap{padding:18px 10px 60px}
+  .crd{padding:16px}
+  .sort-bars{height:130px}
+  nav a{font-size:.7rem;padding:4px 8px}
+  table{font-size:.72rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <a href="#s1">1.Алгоритми</a><a href="#s2">2.Архітектура</a>
+  <a href="#s3">3.Бази даних</a><a href="#s4">4.Інженерія ПЗ</a>
+  <a href="#s5">5.Кібербезпека</a><a href="#s6">6.Математика</a>
+  <a href="#s7">7.Мережі</a><a href="#s8">8.ОС</a>
+  <a href="#s9">9.Програмування</a><a href="#s10">10.ШІ</a>
+</nav>
+
+<div class="tab-bar">
+<button class="tab-btn active" onclick="switchTab('theory')">Теорія</button>
+<button class="tab-btn" onclick="switchTab('exam')">Питання ЄФВІ 2024 (140)</button>
+</div>
+
+<div class="tab-content active" id="tab-theory">
+<div class="wrap">
+
+<!-- ================================================================ -->
+<!-- 1. АЛГОРИТМИ -->
+<!-- ================================================================ -->
+<div class="sec" id="s1">
+<h2><span class="badge">8-12%</span>1. Алгоритми та обчислювальна складність</h2>
+<p class="sub">Алгоритм — це скінченна послідовність однозначних інструкцій для розв'язання задачі. Ми оцінюємо алгоритми за часом (time complexity) і пам'яттю (space complexity).</p>
+
+<div class="crd">
+<h3>Асимптотична складність — O-нотація <span class="lvl lvl-B">B</span></h3>
+<p>Асимптотична складність показує, як зростає час виконання алгоритму зі збільшенням розміру вхідних даних <span class="math">n</span>. Нас цікавить <b>найгірший випадок</b> і <b>порядок зростання</b>.</p>
+
+<div class="diagram">
+<svg width="620" height="280" viewBox="0 0 620 280">
+<defs><marker id="a1" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="#94a3b8"/></marker></defs>
+<rect x="5" y="5" width="610" height="270" rx="10" fill="var(--bg2)" stroke="var(--br)" stroke-width="1.5"/>
+<text x="310" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ac2)">Швидкість зростання складності (O-нотація)</text>
+<line x1="55" y1="250" x2="590" y2="250" stroke="var(--tx2)" stroke-width="1" marker-end="url(#a1)"/>
+<line x1="55" y1="250" x2="55" y2="50" stroke="var(--tx2)" stroke-width="1" marker-end="url(#a1)"/>
+<text x="600" y="255" font-size="10" fill="var(--tx2)">n →</text>
+<text x="35" y="50" font-size="10" fill="var(--tx2)">T(n)</text>
+<!-- O(n!) -->
+<path d="M55,250 Q100,243 120,235 Q150,210 160,170 Q175,100 185,25" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+<text x="190" y="32" font-size="9" fill="#ef4444">O(n!)</text>
+<!-- O(2^n) -->
+<path d="M55,250 Q100,246 130,235 Q160,215 180,170 Q200,100 205,25" fill="none" stroke="#f97316" stroke-width="2"/>
+<text x="210" y="62" font-size="9" fill="#f97316">O(2ⁿ)</text>
+<!-- O(n²) -->
+<path d="M55,250 Q120,248 170,230 Q220,195 255,140 Q285,85 295,25" fill="none" stroke="#eab308" stroke-width="2"/>
+<text x="300" y="32" font-size="9" fill="#eab308">O(n²)</text>
+<!-- O(n log n) -->
+<path d="M55,250 Q115,235 175,200 Q240,160 310,110 Q385,65 435,25" fill="none" stroke="#22c55e" stroke-width="2"/>
+<text x="440" y="32" font-size="9" fill="#22c55e">O(n log n)</text>
+<!-- O(n) -->
+<line x1="55" y1="250" x2="500" y2="25" stroke="#3b82f6" stroke-width="2"/>
+<text x="475" y="50" font-size="9" fill="#3b82f6">O(n)</text>
+<!-- O(log n) -->
+<path d="M55,250 Q120,225 200,185 Q300,145 420,120 Q520,108 560,105" fill="none" stroke="#a855f7" stroke-width="2"/>
+<text x="500" y="128" font-size="9" fill="#a855f7">O(log n)</text>
+<!-- O(1) -->
+<line x1="55" y1="105" x2="590" y2="105" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="555" y="98" font-size="9" fill="#94a3b8">O(1)</text>
+</svg>
+<p class="diagram-cap">Чим крутіша крива — тим гірше. O(1) — ідеал, O(n!) — катастрофа.</p>
+</div>
+
+<table>
+<tr><th>Позначення</th><th>Назва</th><th>Приклад</th></tr>
+<tr><td><span class="tag">O(1)</span></td><td>Константна</td><td>Доступ до елемента масиву за індексом</td></tr>
+<tr><td><span class="tag">O(log n)</span></td><td>Логарифмічна</td><td>Двійковий пошук у відсортованому масиві</td></tr>
+<tr><td><span class="tag">O(n)</span></td><td>Лінійна</td><td>Пошук у невідсортованому масиві, обхід списку</td></tr>
+<tr><td><span class="tag">O(n log n)</span></td><td>Лінійно-логарифмічна</td><td>Quick Sort, Merge Sort, Heap Sort</td></tr>
+<tr><td><span class="tag">O(n²)</span></td><td>Квадратична</td><td>Bubble Sort, вкладені цикли по масиву</td></tr>
+<tr><td><span class="tag">O(2ⁿ)</span></td><td>Експоненційна</td><td>Перебір усіх підмножин</td></tr>
+<tr><td><span class="tag">O(n!)</span></td><td>Факторіальна</td><td>Задача комівояжера (повний перебір)</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>Візуалізатор сортування <span class="lvl lvl-B">B</span></h3>
+<p>
+  Кожен стовпець — елемент масиву, число над ним — його значення.
+  <span style="color:var(--yw)"><b>Жовтий</b></span> = ці два зараз порівнюються.
+  <span style="color:var(--rd)"><b>Червоний</b></span> = ці два міняються місцями.
+  <span style="color:var(--gr)"><b>Зелений</b></span> = вже на правильному місці.
+  <b>Читай рядок статусу</b> — там пояснюється кожен крок. Змінюй швидкість повзунком <b>під час роботи</b> — ефект миттєвий.
+</p>
+<div class="wdg">
+  <div class="ctrl">
+    <button onclick="sortShuffle()" id="btnSh">🔀 Новий масив</button>
+    <button onclick="runSort('bubble')">Bubble O(n²)</button>
+    <button onclick="runSort('selection')">Selection O(n²)</button>
+    <button onclick="runSort('insertion')">Insertion O(n²)</button>
+    <button onclick="runSort('quick')">Quick O(n log n)</button>
+    <button onclick="stopSort()" id="btnStop" class="danger" style="display:none">⏹ СТОП</button>
+    <label style="margin-left:6px">Швидкість: <input type="range" id="speed" min="5" max="500" value="100" style="width:90px" title="Можна міняти під час роботи!"></label>
+  </div>
+  <div id="sortStatus" style="font-family:var(--mo);font-size:.82rem;color:var(--ac2);margin-bottom:8px;min-height:22px"></div>
+  <div class="sort-bars" id="sortBars"></div>
+  <div id="sortExplain" style="margin-top:14px;padding:14px 16px;background:var(--bg3);border-radius:var(--rs);border-left:3px solid var(--ac);font-size:.85rem;color:var(--tx2);display:none;line-height:1.8"></div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Структури даних <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>Структура</th><th>Пошук</th><th>Вставка</th><th>Видалення</th><th>Принцип роботи</th></tr>
+<tr><td>Масив</td><td>O(1) / O(n)</td><td>O(n)</td><td>O(n)</td><td>Фіксований розмір, прямий доступ за індексом</td></tr>
+<tr><td>Зв'язний список</td><td>O(n)</td><td>O(1)</td><td>O(1)</td><td>Динамічний розмір, повільний пошук</td></tr>
+<tr><td>Стек (Stack)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td><td>LIFO — Last In, First Out. Як стопка тарілок</td></tr>
+<tr><td>Черга (Queue)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td><td>FIFO — First In, First Out. Як черга в магазині</td></tr>
+<tr><td>Черга з пріоритетом</td><td>—</td><td>O(log n)</td><td>O(log n)</td><td>Видаляється елемент із найвищим пріоритетом</td></tr>
+<tr><td>Геш-таблиця</td><td>O(1) сер.</td><td>O(1) сер.</td><td>O(1) сер.</td><td>Ключ → значення через геш-функцію</td></tr>
+<tr><td>Бінарне дерево пошуку</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td><td>Збалансоване: все швидко. Не збалансоване: O(n)</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>Стратегії розроблення алгоритмів <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">«Розділяй та володарюй» (Divide & Conquer)</span> — розбиття задачі на підзадачі, рекурсивне розв'язання, комбінування. Приклади: Merge Sort, Quick Sort, двійковий пошук.</p>
+<p><span class="tag">Динамічне програмування</span> — розв'язання через комбінування розв'язків підзадач із запам'ятовуванням (мемоізація). Приклади: числа Фібоначчі, задача про рюкзак, найдовша спільна підпослідовність.</p>
+<p><span class="tag">Жадібні алгоритми</span> — на кожному кроці обирається локально оптимальний варіант. Приклади: алгоритм Дейкстри, алгоритм Крускала (MST), кодування Гаффмана.</p>
+<p><span class="tag">Backtracking (пошук із поверненням)</span> — рекурсивний перебір із відсіканням неперспективних гілок. Приклад: задача про N ферзів.</p>
+</div>
+
+<div class="crd">
+<h3>Класи складності P, NP, NP-повні <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Клас P</span> — задачі, які можна <b>розв'язати</b> за поліноміальний час O(n^k). Наприклад: сортування, пошук найкоротшого шляху.</p>
+<p><span class="tag">Клас NP</span> — задачі, розв'язок яких можна <b>перевірити</b> за поліноміальний час. Наприклад: задача комівояжера — перевірити маршрут легко, знайти оптимальний — складно.</p>
+<p><span class="tag">NP-повні задачі</span> — найскладніші в NP. Якщо для однієї знайдеться поліноміальний алгоритм, то P = NP. Приклади: SAT, задача про рюкзак, розфарбування графа.</p>
+</div>
+
+<div class="crd">
+<h3>Алгоритми на графах <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">BFS (пошук вшир)</span> — використовує чергу. Знаходить найкоротший шлях у незваженому графі. O(V+E).</p>
+<p><span class="tag">DFS (пошук вглиб)</span> — використовує стек або рекурсію. O(V+E).</p>
+<p><span class="tag">Алгоритм Дейкстри</span> — найкоротші шляхи від однієї вершини у зваженому графі без від'ємних ребер. O((V+E) log V).</p>
+<p><span class="tag">Алгоритми Крускала / Пріма</span> — побудова мінімального кістякового дерева (MST).</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Яка часова складність двійкового пошуку у відсортованому масиві?</div>
+<div class="quiz-o" id="q1">
+<label><input type="radio" name="q1" value="0" onclick="chk('q1',0)">O(n)</label>
+<label><input type="radio" name="q1" value="1" onclick="chk('q1',1)">O(log n)</label>
+<label><input type="radio" name="q1" value="2" onclick="chk('q1',2)">O(n²)</label>
+<label><input type="radio" name="q1" value="3" onclick="chk('q1',3)">O(1)</label></div>
+<div class="quiz-fb" id="q1fb"></div></div>
+<div class="quiz-q"><div class="q">2. Який алгоритм має O(n log n) у середньому, але O(n²) у найгіршому?</div>
+<div class="quiz-o" id="q2">
+<label><input type="radio" name="q2" value="0" onclick="chk('q2',0)">Merge Sort</label>
+<label><input type="radio" name="q2" value="1" onclick="chk('q2',1)">Quick Sort</label>
+<label><input type="radio" name="q2" value="2" onclick="chk('q2',2)">Heap Sort</label>
+<label><input type="radio" name="q2" value="3" onclick="chk('q2',3)">Bubble Sort</label></div>
+<div class="quiz-fb" id="q2fb"></div></div>
+<div class="quiz-q"><div class="q">3. Яка структура даних працює за принципом LIFO?</div>
+<div class="quiz-o" id="q3">
+<label><input type="radio" name="q3" value="0" onclick="chk('q3',0)">Черга</label>
+<label><input type="radio" name="q3" value="1" onclick="chk('q3',1)">Стек</label>
+<label><input type="radio" name="q3" value="2" onclick="chk('q3',2)">Черга з пріоритетом</label>
+<label><input type="radio" name="q3" value="3" onclick="chk('q3',3)">Двобічнозв'язний список</label></div>
+<div class="quiz-fb" id="q3fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 2. АРХІТЕКТУРА -->
+<!-- ================================================================ -->
+<div class="sec" id="s2">
+<h2><span class="badge">8-10%</span>2. Архітектура комп'ютера</h2>
+<p class="sub">Як комп'ютер представляє числа в пам'яті, виконує команди, організовує пам'ять і введення/виведення.</p>
+
+<div class="crd">
+<h3>Конвертер систем числення <span class="lvl lvl-B">B</span></h3>
+<p><b>Клацай біти</b> — дивись, як змінюється десяткове, двійкове й шістнадцяткове значення. <span class="tag">Доповнювальний код (Two's Complement)</span> — стандарт для представлення цілих чисел у сучасних CPU. Старший біт = 1 → від'ємне число.</p>
+<div class="wdg">
+  <div class="ctrl">
+    <label>Dec: <input type="number" id="ndec" value="42" oninput="fromDec()" style="width:80px"></label>
+    <label>Bin: <input type="text" id="nbin" value="00101010" oninput="fromBin()" style="width:110px;font-family:var(--mo)"></label>
+    <label>Hex: <input type="text" id="nhex" value="2A" oninput="fromHex()" style="width:65px;font-family:var(--mo)"></label>
+  </div>
+  <div class="bits-row" id="bitToggles"></div>
+  <div style="margin-top:6px;font-size:.78rem;color:var(--tx2)">Доповнювальний код (8 біт): діапазон [−128, 127]. Поточне: <b id="twosInfo" style="font-family:var(--mo)"></b></div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Представлення чисел у пам'яті <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Прямий код</span> — старший біт = знак (0=+, 1=−), решта = модуль. Недолік: два нулі (+0 і −0).</p>
+<p><span class="tag">Обернений код (Ones' Complement)</span> — від'ємне число = інверсія бітів додатного. Також два нулі.</p>
+<p><span class="tag">Доповнювальний код (Two's Complement)</span> — від'ємне = інверсія + 1. <b>Стандарт у всіх сучасних CPU.</b> Один нуль. Для n біт: діапазон [−2ⁿ⁻¹, 2ⁿ⁻¹−1].</p>
+<p><span class="tag">IEEE 754 (плаваюча кома)</span> — float (32 біти: 1 знак + 8 експонента + 23 мантиса), double (64 біти: 1+11+52). Проблеми: 0.1+0.2 ≠ 0.3 через двійкове представлення.</p>
+</div>
+
+<div class="crd">
+<h3>Архітектура фон Неймана <span class="lvl lvl-A">A</span></h3>
+<p><b>Принципи:</b> двійкове кодування, програмне керування, однорідність пам'яті (команди + дані разом), адресність, послідовне виконання.</p>
+<p><span class="tag">«Вузьке місце» (bottleneck)</span> — обмежена пропускна здатність шини між CPU і пам'яттю. Процесор простоює, чекаючи дані.</p>
+<p><span class="tag">Гарвардська архітектура</span> — роздільна пам'ять для команд і даних (швидше, складніше). Використовується в мікроконтролерах і кешах L1.</p>
+<p><span class="tag">Цикл CPU:</span> Fetch (вибірка) → Decode (декодування) → Execute (виконання) → Writeback (запис).</p>
+<div class="info"><b>Ключове для ЄФВІ:</b> знати різницю між фон Нейманом і Гарвардом, принципи представлення цілих і дійсних чисел.</div>
+</div>
+
+<div class="crd">
+<h3>Організація пам'яті <span class="lvl lvl-A">A</span></h3>
+<p><span class="tag">Ієрархія пам'яті</span> (зверху вниз — швидше, менше, дорожче): Регістри → Кеш L1 → Кеш L2 → Кеш L3 → ОЗП (RAM) → SSD/HDD.</p>
+<p><span class="tag">Кеш-пам'ять</span> — принцип локальності: часова (щойно використане — знову знадобиться) і просторова (сусідні дані теж знадобляться).</p>
+<p><span class="tag">Віртуальна пам'ять</span> — програми «бачать» більше пам'яті, ніж є фізично. Реалізується через підкачку сторінок (paging) на диск.</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Який код є стандартом для представлення цілих чисел у сучасних CPU?</div>
+<div class="quiz-o" id="q4">
+<label><input type="radio" name="q4" value="0" onclick="chk('q4',0)">Прямий код</label>
+<label><input type="radio" name="q4" value="1" onclick="chk('q4',1)">Обернений код</label>
+<label><input type="radio" name="q4" value="2" onclick="chk('q4',2)">Доповнювальний код</label></div>
+<div class="quiz-fb" id="q4fb"></div></div>
+<div class="quiz-q"><div class="q">2. Яка архітектура використовує спільну пам'ять для команд і даних?</div>
+<div class="quiz-o" id="q5">
+<label><input type="radio" name="q5" value="0" onclick="chk('q5',0)">Гарвардська</label>
+<label><input type="radio" name="q5" value="1" onclick="chk('q5',1)">Фон Неймана</label>
+<label><input type="radio" name="q5" value="2" onclick="chk('q5',2)">RISC</label></div>
+<div class="quiz-fb" id="q5fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 3. БАЗИ ДАНИХ -->
+<!-- ================================================================ -->
+<div class="sec" id="s3">
+<h2><span class="badge">10-14%</span>3. Бази та сховища даних</h2>
+<p class="sub">Реляційні БД, SQL, нормалізація, ACID, ER-модель, NoSQL, сховища даних. <b>Один із найвагоміших розділів!</b></p>
+
+<div class="crd">
+<h3>SQL Playground <span class="lvl lvl-C">C</span></h3>
+<p>Таблиця <code>students</code> (id, name, group_name, score). Тисни кнопки — бачиш результат запиту й розумієш, як працюють WHERE, GROUP BY, HAVING.</p>
+<div class="wdg">
+  <div class="ctrl" style="flex-direction:column;align-items:flex-start">
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button onclick="runSQL('select *')">SELECT *</button>
+      <button onclick="runSQL('where')">WHERE score > 80</button>
+      <button onclick="runSQL('group')">GROUP BY + AVG()</button>
+      <button onclick="runSQL('order')">ORDER BY DESC</button>
+      <button onclick="runSQL('having')">HAVING + COUNT</button>
+    </div>
+  </div>
+  <div id="sqlRes" style="margin-top:10px;overflow-x:auto"></div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Реляційна модель <span class="lvl lvl-B">B</span></h3>
+<p>Запропонована <b>Едгаром Коддом</b> (1970). Дані — у вигляді таблиць (відношень).</p>
+<p><span class="tag">Кортеж (Tuple)</span> = рядок таблиці. <span class="tag">Атрибут (Attribute)</span> = стовпець. <span class="tag">Схема</span> = структура (імена + типи атрибутів).</p>
+<p><span class="tag">Первинний ключ (Primary Key)</span> — унікально ідентифікує рядок. <span class="tag">Зовнішній ключ (Foreign Key)</span> — посилання на PK іншої таблиці.</p>
+</div>
+
+<div class="crd">
+<h3>Реляційна алгебра — основа SQL <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>Операція</th><th>Символ</th><th>SQL</th><th>Що робить</th></tr>
+<tr><td>Селекція</td><td>σ(R)</td><td>WHERE</td><td>Вибирає рядки за умовою</td></tr>
+<tr><td>Проєкція</td><td>π(R)</td><td>SELECT cols</td><td>Вибирає стовпці</td></tr>
+<tr><td>З'єднання</td><td>R⋈S</td><td>JOIN</td><td>Об'єднує таблиці за ключем</td></tr>
+<tr><td>Об'єднання</td><td>R∪S</td><td>UNION</td><td>Усі рядки з обох таблиць</td></tr>
+<tr><td>Перетин</td><td>R∩S</td><td>INTERSECT</td><td>Спільні рядки</td></tr>
+<tr><td>Різниця</td><td>R−S</td><td>EXCEPT</td><td>Рядки з R без рядків S</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>SQL: DDL / DML / DCL / TCL <span class="lvl lvl-C">C</span></h3>
+<table>
+<tr><th>Тип</th><th>Команди</th><th>Призначення</th></tr>
+<tr><td>DDL (Data Definition)</td><td>CREATE, ALTER, DROP, TRUNCATE</td><td>Структура таблиць</td></tr>
+<tr><td>DML (Data Manipulation)</td><td>SELECT, INSERT, UPDATE, DELETE</td><td>Робота з даними</td></tr>
+<tr><td>DCL (Data Control)</td><td>GRANT, REVOKE</td><td>Керування доступом</td></tr>
+<tr><td>TCL (Transaction Control)</td><td>COMMIT, ROLLBACK, SAVEPOINT</td><td>Керування транзакціями</td></tr>
+</table>
+<p><span class="tag">JOIN:</span> INNER (перетин), LEFT (усе зліва + збіги справа), RIGHT, FULL OUTER, CROSS (декартів добуток).</p>
+<p><span class="tag">Агрегатні функції:</span> COUNT(), SUM(), AVG(), MIN(), MAX() — використовуються з GROUP BY. <span class="tag">HAVING</span> — фільтрація груп (на відміну від WHERE, яке фільтрує рядки).</p>
+</div>
+
+<div class="crd">
+<h3>Нормалізація <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">1NF</span> — атомарність: кожне поле містить одне неподільне значення.</p>
+<p><span class="tag">2NF</span> — 1NF + всі неключові атрибути залежать від <b>повного</b> первинного ключа (не від частини).</p>
+<p><span class="tag">3NF</span> — 2NF + відсутність транзитивних залежностей (неключовий атрибут не залежить від іншого неключового).</p>
+<p><span class="tag">BCNF</span> — посилена 3NF: кожна нетривіальна залежність є залежністю від надключа.</p>
+</div>
+
+<div class="crd">
+<h3>ACID — гарантії транзакцій <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Atomicity</span> — атомарність: усе або нічого. Транзакція не може виконатись частково.</p>
+<p><span class="tag">Consistency</span> — узгодженість: БД переходить з одного коректного стану в інший.</p>
+<p><span class="tag">Isolation</span> — ізольованість: паралельні транзакції не впливають одна на одну.</p>
+<p><span class="tag">Durability</span> — довговічність: підтверджена транзакція зберігається навіть після збою живлення.</p>
+</div>
+
+<div class="crd">
+<h3>ER-модель та NoSQL <span class="lvl lvl-C">C</span></h3>
+<p><span class="tag">ER-модель (Entity-Relationship):</span> Сутність (Entity) — об'єкт реального світу. Атрибут — властивість. Зв'язок — відношення між сутностями. Кардинальність: 1:1, 1:M, M:N.</p>
+<p><span class="tag">NoSQL:</span> Документо-орієнтовані (MongoDB), ключ-значення (Redis), колонкові (Cassandra), графові (Neo4j).</p>
+<p><span class="tag">Теорема CAP:</span> у розподіленій системі можна забезпечити лише 2 з 3: Consistency, Availability, Partition Tolerance.</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Яка властивість ACID гарантує «все або нічого»?</div>
+<div class="quiz-o" id="q6">
+<label><input type="radio" name="q6" value="0" onclick="chk('q6',0)">Consistency</label>
+<label><input type="radio" name="q6" value="1" onclick="chk('q6',1)">Atomicity</label>
+<label><input type="radio" name="q6" value="2" onclick="chk('q6',2)">Isolation</label>
+<label><input type="radio" name="q6" value="3" onclick="chk('q6',3)">Durability</label></div>
+<div class="quiz-fb" id="q6fb"></div></div>
+<div class="quiz-q"><div class="q">2. Яка операція реляційної алгебри відповідає SQL WHERE?</div>
+<div class="quiz-o" id="q7">
+<label><input type="radio" name="q7" value="0" onclick="chk('q7',0)">Проєкція (π)</label>
+<label><input type="radio" name="q7" value="1" onclick="chk('q7',1)">Селекція (σ)</label>
+<label><input type="radio" name="q7" value="2" onclick="chk('q7',2)">З'єднання (⋈)</label></div>
+<div class="quiz-fb" id="q7fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 4. ІНЖЕНЕРІЯ ПЗ -->
+<!-- ================================================================ -->
+<div class="sec" id="s4">
+<h2><span class="badge">10-14%</span>4. Інженерія систем і ПЗ</h2>
+<p class="sub">Життєвий цикл ПЗ, моделі розробки (Waterfall, Agile, Scrum, Kanban), вимоги, проєктування, SOLID, тестування, CI/CD.</p>
+
+<div class="crd">
+<h3>Життєвий цикл ПЗ (SDLC) <span class="lvl lvl-B">B</span></h3>
+<p>Етапи: Аналіз вимог → Проєктування → Реалізація → Тестування → Впровадження → Супровід.</p>
+<table>
+<tr><th>Модель</th><th>Суть</th><th>Коли використовувати</th></tr>
+<tr><td><span class="tag">Waterfall</span></td><td>Послідовні етапи без повернення назад</td><td>Вимоги чіткі, стабільні, проєкт невеликий</td></tr>
+<tr><td><span class="tag">V-Model</span></td><td>Waterfall + паралельне тестування кожного етапу</td><td>Висока надійність (медицина, авіація)</td></tr>
+<tr><td><span class="tag">Agile / Scrum</span></td><td>Ітерації-спринти 1-4 тижні, гнучкість, фідбек</td><td>Вимоги змінюються, потрібна швидка реакція</td></tr>
+<tr><td><span class="tag">Kanban</span></td><td>Візуалізація потоку завдань, обмеження WIP</td><td>Підтримка, неперервні завдання</td></tr>
+<tr><td><span class="tag">Spiral</span></td><td>Ітерації + аналіз ризиків на кожному витку</td><td>Великі, ризиковані проєкти</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>SOLID — 5 принципів <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">S</span> — Single Responsibility: один клас = одна причина для змін.</p>
+<p><span class="tag">O</span> — Open/Closed: відкритий для розширення, закритий для модифікації.</p>
+<p><span class="tag">L</span> — Liskov Substitution: підклас має коректно заміняти батьківський.</p>
+<p><span class="tag">I</span> — Interface Segregation: багато вузьких інтерфейсів краще одного широкого.</p>
+<p><span class="tag">D</span> — Dependency Inversion: залежність від абстракцій, не від конкретних реалізацій.</p>
+</div>
+
+<div class="crd">
+<h3>Тестування ПЗ <span class="lvl lvl-C">C</span></h3>
+<table>
+<tr><th>Рівень</th><th>Що перевіряє</th><th>Хто виконує</th></tr>
+<tr><td>Unit (модульне)</td><td>Окрема функція/метод</td><td>Розробник</td></tr>
+<tr><td>Integration</td><td>Взаємодія кількох модулів</td><td>Розробник / QA</td></tr>
+<tr><td>System</td><td>Уся система цілком</td><td>QA</td></tr>
+<tr><td>Acceptance</td><td>Відповідність бізнес-вимогам</td><td>Замовник</td></tr>
+</table>
+<p><span class="tag">Black-box</span> — без знання коду (функціональне). <span class="tag">White-box</span> — з урахуванням внутрішньої структури (структурне).</p>
+<p><span class="tag">CI/CD:</span> Continuous Integration — автоматична збірка й тести при кожному коміті. Continuous Delivery — автоматичне розгортання після CI.</p>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 5. КІБЕРБЕЗПЕКА -->
+<!-- ================================================================ -->
+<div class="sec" id="s5">
+<h2><span class="badge">8-10%</span>5. Кібербезпека та захист інформації</h2>
+
+<div class="crd">
+<h3>Тріада CIA <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Confidentiality</span> — конфіденційність: доступ тільки авторизованим.</p>
+<p><span class="tag">Integrity</span> — цілісність: дані не змінені несанкціоновано.</p>
+<p><span class="tag">Availability</span> — доступність: дані доступні, коли потрібні.</p>
+<p><span class="tag">AAA (не CIA!):</span> Authentication (хто ти?), Authorization (що тобі можна?), Accounting (що ти зробив?).</p>
+</div>
+
+<div class="crd">
+<h3>Криптографія <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>Тип</th><th>Ключі</th><th>Приклади</th><th>Швидкість</th><th>Для чого</th></tr>
+<tr><td>Симетричне</td><td>1 спільний</td><td>AES, DES, ChaCha20</td><td>Швидко</td><td>Шифрування даних</td></tr>
+<tr><td>Асиметричне</td><td>2 (публ. + приват.)</td><td>RSA, ECC, ElGamal</td><td>Повільно</td><td>Обмін ключами, цифровий підпис</td></tr>
+<tr><td>Геш-функція</td><td>0 (одностороння)</td><td>SHA-256, SHA-3</td><td>Швидко</td><td>Цілісність, зберігання паролів</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>Цифровий підпис — як це працює</h3>
+<p>1. Обчислюється геш повідомлення. 2. Геш шифрується <b>приватним</b> ключем відправника. 3. Отримувач розшифровує <b>публічним</b> ключем і порівнює геші.</p>
+<p>Забезпечує: <b>автентичність</b> (хто підписав), <b>цілісність</b> (не змінено), <b>неспростовність</b> (не можна відмовитись).</p>
+</div>
+
+<div class="crd">
+<h3>Хешування: лавинний ефект <span class="lvl lvl-B">B</span></h3>
+<p>Введи текст — побачиш SHA-256. <b>Зміни хоча б один символ</b> — геш стане повністю іншим. Це називається <b>лавинний ефект</b> — ключова властивість криптографічних геш-функцій.</p>
+<div class="wdg">
+  <div class="ctrl">
+    <input type="text" id="hashIn" value="Hello" oninput="doHash()" style="width:230px">
+    <span style="font-size:.78rem;color:var(--tx2)">→ SHA-256:</span>
+    <span id="hashOut" style="font-family:var(--mo);font-size:.68rem;word-break:break-all"></span>
+  </div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Який тип шифрування використовує пару ключів: відкритий і закритий?</div>
+<div class="quiz-o" id="q8">
+<label><input type="radio" name="q8" value="0" onclick="chk('q8',0)">Симетричне</label>
+<label><input type="radio" name="q8" value="1" onclick="chk('q8',1)">Асиметричне</label>
+<label><input type="radio" name="q8" value="2" onclick="chk('q8',2)">Гешування</label></div>
+<div class="quiz-fb" id="q8fb"></div></div>
+<div class="quiz-q"><div class="q">2. Що НЕ є частиною тріади CIA?</div>
+<div class="quiz-o" id="q9">
+<label><input type="radio" name="q9" value="0" onclick="chk('q9',0)">Конфіденційність</label>
+<label><input type="radio" name="q9" value="1" onclick="chk('q9',1)">Цілісність</label>
+<label><input type="radio" name="q9" value="2" onclick="chk('q9',2)">Аутентифікація</label>
+<label><input type="radio" name="q9" value="3" onclick="chk('q9',3)">Доступність</label></div>
+<div class="quiz-fb" id="q9fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 6. МАТЕМАТИКА -->
+<!-- ================================================================ -->
+<div class="sec" id="s6">
+<h2><span class="badge">16-18%</span>6. Прикладна математика</h2>
+<p class="sub"><b>Найвагоміший розділ!</b> Дискретна математика, лінійна алгебра, теорія ймовірностей і матстатистика, диференціальні рівняння.</p>
+
+<div class="crd">
+<h3>Таблиця істинності <span class="lvl lvl-B">B</span></h3>
+<p>Вибери операцію — побачиш таблицю. <span class="tag">A→B</span> (імплікація) = False <b>тільки</b> коли A=T і B=F. Запам'ятай: «з правди не може слідувати брехня».</p>
+<div class="wdg">
+  <div class="ctrl">
+    <button onclick="ttable('AND')">A∧B (AND)</button>
+    <button onclick="ttable('OR')">A∨B (OR)</button>
+    <button onclick="ttable('XOR')">A⊕B (XOR)</button>
+    <button onclick="ttable('IMP')">A→B (→)</button>
+    <button onclick="ttable('NAND')">A|B (NAND)</button>
+    <button onclick="ttable('EQ')">A↔B (≡)</button>
+  </div>
+  <div id="ttRes"></div>
+  <div id="ttExpl" style="font-size:.8rem;color:var(--tx2);margin-top:6px"></div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Симулятор ймовірностей — Закон великих чисел <span class="lvl lvl-B">B</span></h3>
+<p>Кидай монету. При 10 кидках — результати хаотичні. При 1000 — <b>наближаються до 50/50</b>. Це закон великих чисел у дії.</p>
+<div class="wdg">
+  <div class="ctrl">
+    <button onclick="flip(1)">1 раз</button>
+    <button onclick="flip(10)">10 разів</button>
+    <button onclick="flip(100)">100 разів</button>
+    <button onclick="flip(1000)">1000 разів</button>
+    <button onclick="resetCoin()">Скинути</button>
+  </div>
+  <div id="coinStats" style="font-family:var(--mo);font-size:.82rem;margin-bottom:6px"></div>
+  <div class="prob-chart" id="coinChart"></div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Комбінаторика — формули <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Перестановки: P(n) = n!</span> — скількома способами розставити n різних об'єктів у ряд.</p>
+<p><span class="tag">Розміщення: A(n,k) = n!/(n−k)!</span> — вибрати k з n, порядок <b>важливий</b>.</p>
+<p><span class="tag">Комбінації: C(n,k) = n!/(k!(n−k)!)</span> — вибрати k з n, порядок <b>неважливий</b>.</p>
+</div>
+
+<div class="crd">
+<h3>Теорія ймовірностей — ключові формули <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Умовна ймовірність: P(A|B) = P(A∩B) / P(B)</span></p>
+<p><span class="tag">Формула повної ймовірності: P(A) = Σ P(A|Hᵢ)·P(Hᵢ)</span></p>
+<p><span class="tag">Формула Байєса: P(H|E) = P(E|H)·P(H) / P(E)</span> — <b>ключова для Machine Learning!</b></p>
+<p><span class="tag">Схема Бернуллі: P(k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</span> — імовірність k успіхів у n випробуваннях.</p>
+</div>
+
+<div class="crd">
+<h3>Нормальний розподіл і статистика <span class="lvl lvl-B">B</span></h3>
+<div class="diagram">
+<svg width="580" height="200" viewBox="0 0 580 200">
+<rect x="5" y="5" width="570" height="190" rx="8" fill="var(--bg2)" stroke="var(--br)" stroke-width="1"/>
+<text x="290" y="30" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ac2)">Нормальний розподіл N(μ, σ²) — правило трьох сигм</text>
+<path d="M40,180 C40,180 100,180 160,165 C220,135 240,45 290,28 C340,45 360,135 420,165 C480,180 540,180 540,180" fill="none" stroke="var(--ac)" stroke-width="2.5"/>
+<line x1="290" y1="28" x2="290" y2="180" stroke="var(--tx2)" stroke-width="1" stroke-dasharray="5,4"/>
+<text x="295" y="192" font-size="9" fill="var(--tx2)">μ</text>
+<line x1="200" y1="28" x2="200" y2="180" stroke="var(--gr)" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="193" y="192" font-size="8" fill="var(--gr)">μ−σ</text>
+<line x1="380" y1="28" x2="380" y2="180" stroke="var(--gr)" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="383" y="192" font-size="8" fill="var(--gr)">μ+σ</text>
+<text x="420" y="60" font-size="8" fill="var(--tx2)">68.3% — у межах μ±σ</text>
+<text x="420" y="78" font-size="8" fill="var(--tx2)">95.5% — у межах μ±2σ</text>
+<text x="420" y="96" font-size="8" fill="var(--tx2)">99.7% — у межах μ±3σ</text>
+</svg>
+</div>
+<p><span class="tag">Нульова гіпотеза H₀</span> — припущення, яке перевіряємо (зазвичай «ефекту немає»). <span class="tag">p-value</span> — імовірність отримати такі дані, якщо H₀ вірна. p < α → H₀ відхиляється.</p>
+</div>
+
+<div class="crd">
+<h3>Лінійна алгебра (стисло) <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Множення матриць: A(m×n) × B(n×p) = C(m×p).</span> Елемент C[i][j] = Σ A[i][k]·B[k][j].</p>
+<p><span class="tag">Визначник det(A) = 0</span> ⇔ матриця вироджена (немає оберненої).</p>
+<p><span class="tag">Власні значення λ:</span> det(A−λI) = 0. <span class="tag">Власний вектор v:</span> Av = λv.</p>
+</div>
+
+<div class="crd">
+<h3>Диференціальні рівняння <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">ЗДР (звичайне диф. рівняння)</span> — містить функцію однієї змінної та її похідні.</p>
+<p><span class="tag">Задача Коші</span> — ЗДР + початкові умови.</p>
+<p><span class="tag">Чисельні методи:</span> метод Ейлера (простий, O(h)), метод Рунге-Кутти (точний, O(h⁴)), метод скінченних різниць.</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Скількома способами можна вибрати 2 студентів із 10? (Порядок неважливий)</div>
+<div class="quiz-o" id="q10">
+<label><input type="radio" name="q10" value="0" onclick="chk('q10',0)">A(10,2) = 90</label>
+<label><input type="radio" name="q10" value="1" onclick="chk('q10',1)">C(10,2) = 45</label>
+<label><input type="radio" name="q10" value="2" onclick="chk('q10',2)">10² = 100</label></div>
+<div class="quiz-fb" id="q10fb"></div></div>
+<div class="quiz-q"><div class="q">2. При яких A і B імплікація A→B є хибною?</div>
+<div class="quiz-o" id="q11">
+<label><input type="radio" name="q11" value="0" onclick="chk('q11',0)">A=T, B=T</label>
+<label><input type="radio" name="q11" value="1" onclick="chk('q11',1)">A=T, B=F</label>
+<label><input type="radio" name="q11" value="2" onclick="chk('q11',2)">A=F, B=T</label></div>
+<div class="quiz-fb" id="q11fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 7. МЕРЕЖІ -->
+<!-- ================================================================ -->
+<div class="sec" id="s7">
+<h2><span class="badge">5-7%</span>7. Комп'ютерні мережі</h2>
+
+<div class="crd">
+<h3>Калькулятор підмереж <span class="lvl lvl-B">B</span></h3>
+<p>Введи IP і маску — побачиш адресу мережі, broadcast, діапазон. /24 = 254 хости, /16 = 65534.</p>
+<div class="wdg">
+  <div class="ctrl">
+    <input type="text" id="sip" value="192.168.1.100" style="width:125px;font-family:var(--mo)" oninput="calcSub()">
+    <span>/</span>
+    <input type="number" id="spr" value="24" min="0" max="32" style="width:52px" oninput="calcSub()">
+    <button onclick="calcSub()">OK</button>
+  </div>
+  <div class="sub-r" id="subRes"></div>
+</div>
+</div>
+
+<div class="crd">
+<h3>Модель OSI (7 рівнів) <span class="lvl lvl-B">B</span></h3>
+<div class="diagram">
+<svg width="600" height="340" viewBox="0 0 600 340">
+<text x="20" y="24" font-size="12" font-weight="700" fill="var(--ac2)">OSI (7 рівнів) ←→ TCP/IP (4 рівні)</text>
+<!-- OSI 7 -->
+<rect x="10" y="36" width="240" height="36" rx="5" fill="#1d4ed833" stroke="var(--ac)" stroke-width="1"/>
+<text x="22" y="58" font-size="10" font-weight="600" fill="var(--ac2)">7. Прикладний — HTTP, FTP, DNS, SMTP</text>
+<rect x="10" y="76" width="240" height="28" rx="5" fill="var(--bg3)" stroke="var(--br)" stroke-width="1"/>
+<text x="22" y="94" font-size="10" fill="var(--tx2)">6. Представлення — SSL/TLS, JPEG</text>
+<rect x="10" y="108" width="240" height="28" rx="5" fill="var(--bg3)" stroke="var(--br)" stroke-width="1"/>
+<text x="22" y="126" font-size="10" fill="var(--tx2)">5. Сеансовий — NetBIOS, RPC</text>
+<rect x="10" y="140" width="240" height="36" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1"/>
+<text x="22" y="162" font-size="10" font-weight="600" fill="var(--gr)">4. Транспортний — TCP, UDP</text>
+<rect x="10" y="180" width="240" height="36" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1"/>
+<text x="22" y="202" font-size="10" font-weight="600" fill="var(--gr)">3. Мережевий — IP, ICMP</text>
+<rect x="10" y="220" width="240" height="36" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1"/>
+<text x="22" y="242" font-size="10" font-weight="600" fill="var(--gr)">2. Канальний — Ethernet, MAC</text>
+<rect x="10" y="260" width="240" height="36" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1"/>
+<text x="22" y="282" font-size="10" font-weight="600" fill="var(--gr)">1. Фізичний — кабелі, радіо</text>
+<!-- TCP/IP mapping -->
+<text x="330" y="60" font-size="11" font-weight="700" fill="var(--ac)">TCP/IP</text>
+<rect x="315" y="70" width="80" height="72" rx="5" fill="#1d4ed833" stroke="var(--ac)" stroke-width="1.5"/>
+<text x="355" y="110" text-anchor="middle" font-size="10" fill="var(--ac2)">Application</text>
+<rect x="315" y="145" width="80" height="36" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1.5"/>
+<text x="355" y="167" text-anchor="middle" font-size="10" fill="var(--gr)">Transport</text>
+<rect x="315" y="185" width="80" height="36" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1.5"/>
+<text x="355" y="207" text-anchor="middle" font-size="10" fill="var(--gr)">Internet</text>
+<rect x="315" y="225" width="80" height="72" rx="5" fill="#065f4633" stroke="var(--gr)" stroke-width="1.5"/>
+<text x="355" y="265" text-anchor="middle" font-size="10" fill="var(--gr)">Network Access</text>
+<!-- Brackets -->
+<line x1="305" y1="70" x2="305" y2="296" stroke="var(--tx2)" stroke-width="1"/>
+<text x="298" y="188" text-anchor="middle" font-size="8" fill="var(--tx2)" transform="rotate(-90, 298, 188)">відповідність</text>
+</svg>
+</div>
+<p>Мнемоніка для OSI (7→1): <b>All People Seem To Need Data Processing</b>.</p>
+<p><span class="tag">IPv4:</span> 32 біти (4 октети), ~4.3 млрд адрес. <span class="tag">IPv6:</span> 128 біт. <span class="tag">Порт:</span> 16 біт (0-65535). HTTP=80, HTTPS=443, SSH=22, DNS=53.</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. На якому рівні OSI працює TCP?</div>
+<div class="quiz-o" id="q12">
+<label><input type="radio" name="q12" value="0" onclick="chk('q12',0)">Мережевий (3)</label>
+<label><input type="radio" name="q12" value="1" onclick="chk('q12',1)">Транспортний (4)</label>
+<label><input type="radio" name="q12" value="2" onclick="chk('q12',2)">Прикладний (7)</label></div>
+<div class="quiz-fb" id="q12fb"></div></div>
+<div class="quiz-q"><div class="q">2. Скільки хостів у мережі /24?</div>
+<div class="quiz-o" id="q13">
+<label><input type="radio" name="q13" value="0" onclick="chk('q13',0)">256</label>
+<label><input type="radio" name="q13" value="1" onclick="chk('q13',1)">254</label>
+<label><input type="radio" name="q13" value="2" onclick="chk('q13',2)">128</label></div>
+<div class="quiz-fb" id="q13fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 8. ОС -->
+<!-- ================================================================ -->
+<div class="sec" id="s8">
+<h2><span class="badge">8-10%</span>8. Операційні системи</h2>
+
+<div class="crd">
+<h3>Функції та типи ОС <span class="lvl lvl-A">A</span></h3>
+<ul>
+<li><span class="tag">Керування процесами</span> — створення, планування (CPU scheduling), синхронізація</li>
+<li><span class="tag">Керування пам'яттю</span> — виділення, віртуальна пам'ять, підкачка сторінок (paging)</li>
+<li><span class="tag">Керування файлами</span> — організація, доступ, права, директорії</li>
+<li><span class="tag">Керування I/O</span> — драйвери пристроїв, буферизація, переривання</li>
+<li><span class="tag">Безпека</span> — розмежування доступу, ізоляція процесів</li>
+</ul>
+<table>
+<tr><th>Тип ОС</th><th>Характеристика</th><th>Приклад</th></tr>
+<tr><td>Однокористувацька</td><td>Один користувач за раз</td><td>Windows 10 Home</td></tr>
+<tr><td>Багатокористувацька</td><td>Багато користувачів одночасно</td><td>Linux, Windows Server</td></tr>
+<tr><td>Реального часу (RTOS)</td><td>Гарантований час відгуку</td><td>FreeRTOS, VxWorks</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>Файлові системи <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>ФС</th><th>ОС</th><th>Макс. розмір файлу</th></tr>
+<tr><td>NTFS</td><td>Windows</td><td>~16 ЕБ (ексабайт)</td></tr>
+<tr><td>FAT32</td><td>Крос-платформа</td><td>4 ГБ</td></tr>
+<tr><td>ext4</td><td>Linux</td><td>16 ТБ</td></tr>
+<tr><td>APFS</td><td>macOS</td><td>~8 ЕБ</td></tr>
+</table>
+<p><span class="tag">Логічна організація:</span> файли й теки (деревоподібна ієрархія). <span class="tag">Фізична організація:</span> блоки (кластери) на диску, i-node в Linux, MFT в NTFS.</p>
+</div>
+
+<div class="crd">
+<h3>Тестове питання</h3>
+<div class="quiz-q"><div class="q">1. Який механізм дозволяє програмам використовувати більше пам'яті, ніж фізично доступно?</div>
+<div class="quiz-o" id="q14">
+<label><input type="radio" name="q14" value="0" onclick="chk('q14',0)">Кешування</label>
+<label><input type="radio" name="q14" value="1" onclick="chk('q14',1)">Віртуальна пам'ять</label>
+<label><input type="radio" name="q14" value="2" onclick="chk('q14',2)">DMA</label></div>
+<div class="quiz-fb" id="q14fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 9. МОВИ ПРОГРАМУВАННЯ -->
+<!-- ================================================================ -->
+<div class="sec" id="s9">
+<h2><span class="badge">8-10%</span>9. Основи мов програмування</h2>
+<div class="info w"><b>На ЄФВІ заборонено код і псевдокод у питаннях!</b> Лише концептуальні питання про ООП, парадигми, компіляцію, класифікацію Флінна.</div>
+
+<div class="crd">
+<h3>ООП — 4 основні концепції <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>Концепція</th><th>Сенс</th><th>Аналогія</th></tr>
+<tr><td><span class="tag">Абстракція</span></td><td>Виділяємо головне, ігноруємо деталі</td><td>Кермо: крутиш — повертає, як влаштовано всередині неважливо</td></tr>
+<tr><td><span class="tag">Інкапсуляція</span></td><td>Ховаємо внутрішні дані, доступ через методи</td><td>Ліки в капсулі: не бачиш склад, знаєш як діє</td></tr>
+<tr><td><span class="tag">Спадкування</span></td><td>Новий клас розширює існуючий (is-a)</td><td>Кіт є твариною — успадковує властивості тварини</td></tr>
+<tr><td><span class="tag">Поліморфізм</span></td><td>Один інтерфейс — різна реалізація</td><td>Кнопка «відтворити» — для музики, відео, гри — різна поведінка</td></tr>
+</table>
+<p style="margin-top:10px"><span class="tag">Зв'язки між класами:</span> Асоціація (загальний зв'язок), Агрегація (has-a, частина може існувати окремо), Композиція (has-a, частина не може існувати окремо), Спадкування (is-a).</p>
+</div>
+
+<div class="crd">
+<h3>Класифікація Флінна <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>Тип</th><th>Потоки команд</th><th>Потоки даних</th><th>Приклад</th></tr>
+<tr><td><span class="tag">SISD</span></td><td>1</td><td>1</td><td>Класичний одноядерний CPU</td></tr>
+<tr><td><span class="tag">SIMD</span></td><td>1</td><td>Багато</td><td>GPU, AVX/SSE інструкції</td></tr>
+<tr><td><span class="tag">MISD</span></td><td>Багато</td><td>1</td><td>Відмовостійкі системи (рідко)</td></tr>
+<tr><td><span class="tag">MIMD</span></td><td>Багато</td><td>Багато</td><td>Багатоядерні CPU, кластери</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>Компілятор vs Інтерпретатор vs JIT <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Компілятор</span> — перетворює весь код у машинний до запуску. Швидке виконання. C, C++, Rust, Go.</p>
+<p><span class="tag">Інтерпретатор</span> — виконує рядок за рядком під час роботи. Гнучкість. Python, Ruby, Bash.</p>
+<p><span class="tag">JIT (Just-In-Time)</span> — гібрид: компілює часто використовувані частини під час виконання. Java (JVM), C# (.NET), V8 (JS).</p>
+</div>
+
+<div class="crd">
+<h3>Парадигми програмування <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Процедурне</span> — послідовність процедур (C). <span class="tag">Функціональне</span> — чисті функції, незмінні дані (Haskell). <span class="tag">Логічне</span> — факти + правила (Prolog). <span class="tag">Подійно-орієнтоване</span> — реакція на події (JS у браузері). <span class="tag">Реактивне</span> — автоматичне поширення змін (RxJS). <span class="tag">Узагальнене</span> — generics/templates.</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Яка концепція ООП означає приховування внутрішньої реалізації?</div>
+<div class="quiz-o" id="q15">
+<label><input type="radio" name="q15" value="0" onclick="chk('q15',0)">Поліморфізм</label>
+<label><input type="radio" name="q15" value="1" onclick="chk('q15',1)">Спадкування</label>
+<label><input type="radio" name="q15" value="2" onclick="chk('q15',2)">Інкапсуляція</label>
+<label><input type="radio" name="q15" value="3" onclick="chk('q15',3)">Абстракція</label></div>
+<div class="quiz-fb" id="q15fb"></div></div>
+<div class="quiz-q"><div class="q">2. До якого типу за Флінном належить GPU?</div>
+<div class="quiz-o" id="q16">
+<label><input type="radio" name="q16" value="0" onclick="chk('q16',0)">SISD</label>
+<label><input type="radio" name="q16" value="1" onclick="chk('q16',1)">SIMD</label>
+<label><input type="radio" name="q16" value="2" onclick="chk('q16',2)">MIMD</label></div>
+<div class="quiz-fb" id="q16fb"></div></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 10. ШІ -->
+<!-- ================================================================ -->
+<div class="sec" id="s10">
+<h2><span class="badge">6-8%</span>10. Штучний інтелект</h2>
+
+<div class="crd">
+<h3>Фундаментальні поняття <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Слабкий ШІ (Narrow AI)</span> — спеціалізований на одній задачі (шахи, розпізнавання облич). Те, що існує зараз.</p>
+<p><span class="tag">Сильний ШІ (AGI)</span> — гіпотетичний ШІ рівня людини, здатний до будь-якої інтелектуальної задачі.</p>
+<p><span class="tag">Інтелектуальний агент</span> — система, що сприймає середовище через сенсори, діє через актуатори.</p>
+<p><span class="tag">BFS/DFS у ШІ</span> — пошук у просторі станів для розв'язання задач. Прямий/зворотний/двонаправлений пошук.</p>
+</div>
+
+<div class="crd">
+<h3>Нейромережа: класифікація «на очах» <span class="lvl lvl-B">B</span></h3>
+<p><b>Клікай на полі</b>, додаючи точки двох класів (🔵 синій та 🟠 помаранчевий). Тисни «Навчати» — мережа будує межу рішення. <b>Фон</b> показує впевненість: чим яскравіший — тим мережа впевненіша.</p>
+<div class="wdg">
+  <div class="ctrl">
+    <button onclick="toggleNN()" id="nnCls">Клас: 🔵 Синій</button>
+    <button onclick="trainStep()">1 крок навчання</button>
+    <button onclick="trainLoop()">10 кроків</button>
+    <button onclick="nnReset()">Скинути</button>
+    <span id="nnLoss" style="font-size:.78rem;color:var(--tx2)"></span>
+  </div>
+  <div class="nn-c"><canvas id="nnC" width="480" height="380"></canvas></div>
+  <p style="font-size:.75rem;color:var(--tx2);margin-top:4px">Це логістична регресія — один нейрон із сигмоїдою. Для складніших нелінійних меж потрібні додаткові шари (глибоке навчання).</p>
+</div>
+</div>
+
+<div class="crd">
+<h3>Машинне навчання (ML) <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Supervised (з учителем)</span> — дані мають мітки. Класифікація, регресія.</p>
+<p><span class="tag">Unsupervised (без учителя)</span> — міток немає. Кластеризація (k-means), PCA.</p>
+<p><span class="tag">Overfitting (перенавчання)</span> — модель «запам'ятала» тренувальні дані, погано узагальнює на нові.</p>
+<p><span class="tag">Train / Validation / Test</span> — поділ даних: ~70% / 15% / 15%.</p>
+</div>
+
+<div class="crd">
+<h3>Функції активації нейрона <span class="lvl lvl-B">B</span></h3>
+<table>
+<tr><th>Функція</th><th>Формула</th><th>Вихід</th><th>Особливість</th></tr>
+<tr><td>Сигмоїдна</td><td class="math">σ(x)=1/(1+e⁻ˣ)</td><td>(0, 1)</td><td>Гладка, проблема затухаючого градієнта</td></tr>
+<tr><td>ReLU</td><td class="math">max(0, x)</td><td>[0, ∞)</td><td>Найпопулярніша, швидка</td></tr>
+<tr><td>Порогова</td><td class="math">0|x&lt;0, 1|x≥0</td><td>{0, 1}</td><td>Перцептрон Розенблатта</td></tr>
+<tr><td>Лінійна</td><td class="math">f(x)=x</td><td>(−∞, ∞)</td><td>Для регресії (вихідний шар)</td></tr>
+</table>
+</div>
+
+<div class="crd">
+<h3>Моделі подання знань <span class="lvl lvl-B">B</span></h3>
+<p><span class="tag">Семантична мережа</span> — граф: вузли = концепти, ребра = відношення (is-a, has-part).</p>
+<p><span class="tag">Продукційна модель</span> — правила «ЯКЩО (умова) → ТО (дія)». Основа експертних систем.</p>
+</div>
+
+<div class="crd">
+<h3>Тестові питання</h3>
+<div class="quiz-q"><div class="q">1. Який тип ML використовує розмічені дані (з правильними відповідями)?</div>
+<div class="quiz-o" id="q17">
+<label><input type="radio" name="q17" value="0" onclick="chk('q17',0)">Unsupervised (без учителя)</label>
+<label><input type="radio" name="q17" value="1" onclick="chk('q17',1)">Supervised (з учителем)</label>
+<label><input type="radio" name="q17" value="2" onclick="chk('q17',2)">Reinforcement (з підкріпленням)</label></div>
+<div class="quiz-fb" id="q17fb"></div></div>
+<div class="quiz-q"><div class="q">2. Що таке overfitting?</div>
+<div class="quiz-o" id="q18">
+<label><input type="radio" name="q18" value="0" onclick="chk('q18',0)">Модель не навчилась на тренувальних даних</label>
+<label><input type="radio" name="q18" value="1" onclick="chk('q18',1)">Модель добре працює на тренувальних, але погано на нових даних</label>
+<label><input type="radio" name="q18" value="2" onclick="chk('q18',2)">Модель працює однаково на всіх даних</label></div>
+<div class="quiz-fb" id="q18fb"></div></div>
+</div>
+</div>
+
+</div><!-- /wrap -->
+
+</div><!-- /tab-theory -->
+</div><!-- /wrap -->
+
+<div class="tab-content" id="tab-exam">
+<div class="exam-wrap">
+<div class="exam-header">
+<h2>ЄФВІ 2024 — Інформаційні технології</h2>
+<p>140 питань основної сесії. Натискай на відповідь, потім «Перевірити» — побачиш правильну відповідь і пояснення.</p>
+<div class="exam-stats">
+<div class="exam-stat">Відповідей: <b id="exAnswered">0</b>/140</div>
+<div class="exam-stat">Правильно: <b id="exCorrect" style="color:var(--gr)">0</b></div>
+<div class="exam-stat">Неправильно: <b id="exWrong" style="color:var(--rd)">0</b></div>
+</div>
+</div>
+<div class="exam-nav" id="examNav"></div>
+<div id="examCard"></div>
+<div class="exam-controls">
+<button id="exPrev" onclick="exNav(-1)">← Попереднє</button>
+<button id="exCheck" onclick="exCheck()">Перевірити</button>
+<button id="exNext" onclick="exNav(1)">Наступне →</button>
+</div>
+</div>
+</div><!-- /tab-exam -->
+
+<script>
+// ==================== SORTING ====================
+let sortArr=[],sortCancel=null;
+const NB=20;
+var sortDoneSet=new Set();
+function initSort(){sortArr=[];for(let i=0;i<NB;i++)sortArr.push(Math.floor(Math.random()*160)+20);sortDoneSet.clear();drawBarsS();document.getElementById('sortStatus').textContent='Готово. Обери алгоритм.';}
+function sortShuffle(){if(sortCancel)stopSort();initSort();var ex=document.getElementById('sortExplain');if(ex)ex.style.display='none';}
+function drawBarsS(){
+  const c=document.getElementById('sortBars');c.innerHTML='';
+  const mv=Math.max(...sortArr);
+  sortArr.forEach(v=>{
+    const w=document.createElement('div');
+    const l=document.createElement('span');l.textContent=v;w.appendChild(l);
+    const b=document.createElement('div');b.className='bar';b.style.height=(v/mv*155+5)+'px';w.appendChild(b);c.appendChild(w);
+  });
+}
+function hlBars(i,j,clr){
+  const bars=document.querySelectorAll('#sortBars .bar');
+  bars.forEach((b,k)=>{
+    if(k===i||k===j){b.style.background=clr;}
+    else if(sortDoneSet.has(k)){b.style.background='var(--gr)';}
+    else{b.style.background='var(--ac)';}
+  });
+}
+function clearHL(){document.querySelectorAll('#sortBars .bar').forEach((b,k)=>{b.style.background=sortDoneSet.has(k)?'var(--gr)':'var(--ac)';});}
+function markDone(ix){const bars=document.querySelectorAll('#sortBars .bar');ix.forEach(i=>{if(bars[i]){bars[i].style.background='var(--gr)';sortDoneSet.add(i);}});}
+function updVals(arr){
+  const wraps=document.querySelectorAll('#sortBars>div');const mv=Math.max(...arr);
+  arr.forEach((v,i)=>{if(wraps[i]){wraps[i].querySelector('span').textContent=v;wraps[i].querySelector('.bar').style.height=(v/mv*155+5)+'px';}});
+}
+function sleepS(ms){return new Promise(r=>{const id=setTimeout(r,ms);if(sortCancel)sortCancel.oncancel=()=>{clearTimeout(id);r();};});}
+function stopSort(){if(sortCancel){sortCancel.cancelled=true;if(sortCancel.oncancel)sortCancel.oncancel();}sortCancel=null;document.getElementById('btnStop').style.display='none';document.getElementById('sortStatus').textContent='Зупинено.';}
+var sortExplain={
+  bubble:'<b style="color:var(--ac2)">Bubble Sort (бульбашкове сортування)</b><br>\
+<strong>Ідея:</strong> порівнюємо сусідні елементи й міняємо місцями, якщо лівий більший за правий. Найбільший елемент «спливає» в кінець, як бульбашка.<br>\
+<strong>Кроки:</strong><br>\
+1. Беремо першу пару (a[0], a[1]). Якщо a[0] > a[1] — міняємо.<br>\
+2. Рухаємося далі: (a[1], a[2]), (a[2], a[3])... до кінця.<br>\
+3. Після першого проходу найбільший елемент уже в кінці.<br>\
+4. Повторюємо для залишку масиву (без останнього елемента).<br>\
+<strong>Складність:</strong> O(n²) — подвійний цикл. Найгірший випадок: масив відсортований у зворотному порядку.<br>\
+<strong>Стабільний:</strong> так (однакові елементи не міняються місцями).',
+  selection:'<b style="color:var(--ac2)">Selection Sort (сортування вибором)</b><br>\
+<strong>Ідея:</strong> на кожному кроці знаходимо мінімальний елемент у невідсортованій частині й ставимо його на початок.<br>\
+<strong>Кроки:</strong><br>\
+1. Шукаємо мінімум у всьому масиві — ставимо на позицію 0.<br>\
+2. Шукаємо мінімум у залишку [1..n-1] — ставимо на позицію 1.<br>\
+3. Повторюємо, поки не дійдемо до кінця.<br>\
+<strong>Складність:</strong> O(n²) — завжди, навіть на відсортованому масиві (бо все одно шукає мінімум).<br>\
+<strong>Стабільний:</strong> ні — однакові елементи можуть помінятися місцями.<br>\
+<strong>Перевага:</strong> мінімальна кількість обмінів (не більше n-1).',
+  insertion:'<b style="color:var(--ac2)">Insertion Sort (сортування вставками)</b><br>\
+<strong>Ідея:</strong> як сортувати карти в руках — беремо нову карту й вставляємо в правильне місце серед уже відсортованих.<br>\
+<strong>Кроки:</strong><br>\
+1. Перший елемент вважається відсортованим.<br>\
+2. Беремо другий елемент і вставляємо його до першого (лівіше або правіше).<br>\
+3. Беремо третій і вставляємо у відсортовану частину [0..1].<br>\
+4. Повторюємо для всіх елементів.<br>\
+<strong>Складність:</strong> O(n²) найгірший, O(n) найкращий (якщо масив уже відсортований).<br>\
+<strong>Стабільний:</strong> так.<br>\
+<strong>Перевага:</strong> дуже швидкий на майже відсортованих масивах.',
+  quick:'<b style="color:var(--ac2)">Quick Sort (швидке сортування)</b><br>\
+<strong>Ідея:</strong> обираємо «опорний» елемент (pivot), ділимо масив на менші та більші за опорний, потім рекурсивно сортуємо обидві частини.<br>\
+<strong>Кроки:</strong><br>\
+1. Обираємо опорний елемент (тут — останній у ділянці).<br>\
+2. Усі елементи, менші за опорний, йдуть лівіше; більші — правіше.<br>\
+3. Опорний елемент опиняється на своєму фінальному місці.<br>\
+4. Рекурсивно сортуємо ліву частину (до опорного) і праву (після опорного).<br>\
+<strong>Складність:</strong> O(n log n) середній, O(n²) найгірший (при невдалому виборі опорного).<br>\
+<strong>Стабільний:</strong> ні.<br>\
+<strong>Перевага:</strong> найшвидший на практиці для великих масивів.'
+};
+async function runSort(algo){
+  if(sortCancel){stopSort();await sleepS(50);}
+  // Show explanation panel
+  var ex=document.getElementById('sortExplain');
+  if(ex){ex.style.display='block';ex.innerHTML=sortExplain[algo]||'';}
+  const token={cancelled:false,oncancel:null};sortCancel=token;
+  document.getElementById('btnStop').style.display='';
+  if(sortArr.length===0)initSort();
+  let cmp=0,swp=0;
+  const a=[...sortArr],n=a.length;
+  const se=document.getElementById('sortStatus');
+  const nm={bubble:'Bubble Sort — O(n²)',selection:'Selection Sort — O(n²)',insertion:'Insertion Sort — O(n²)',quick:'Quick Sort — O(n log n)'};
+  se.textContent=nm[algo]+' | Починаю...';
+  function getDelay(){return Math.max(20,500-parseInt(document.getElementById('speed').value));}
+  try{
+    if(algo==='bubble'){
+      for(let i=0;i<n-1;i++){
+        for(let j=0;j<n-1-i;j++){
+          if(token.cancelled)throw'X';
+          cmp++;
+          se.textContent='Bubble: порівнюю a['+j+']='+a[j]+' і a['+(j+1)+']='+a[j+1];
+          hlBars(j,j+1,'var(--yw)');
+          await sleepS(getDelay());
+          if(a[j]>a[j+1]){
+            swp++;
+            se.textContent='Bubble: МІНЯЮ a['+j+']='+a[j]+' ↔ a['+(j+1)+']='+a[j+1];
+            hlBars(j,j+1,'var(--rd)');
+            let tmp=a[j];a[j]=a[j+1];a[j+1]=tmp;
+            updVals(a);
+            await sleepS(getDelay());
+          }
+        }
+        markDone([n-1-i]);
+      }
+      for(let i=0;i<n;i++)markDone([i]);
+    }else if(algo==='selection'){
+      for(let i=0;i<n-1;i++){
+        let mi=i;
+        for(let j=i+1;j<n;j++){
+          if(token.cancelled)throw'X';
+          cmp++;
+          se.textContent='Selection: мін a['+mi+']='+a[mi]+', дивлюсь a['+j+']='+a[j];
+          hlBars(mi,j,'var(--yw)');
+          await sleepS(getDelay());
+          if(a[j]<a[mi])mi=j;
+        }
+        if(mi!==i){
+          swp++;
+          se.textContent='Selection: МІНЯЮ a['+i+']='+a[i]+' ↔ a['+mi+']='+a[mi];
+          hlBars(i,mi,'var(--rd)');
+          let tmp=a[i];a[i]=a[mi];a[mi]=tmp;
+          updVals(a);
+          await sleepS(getDelay());
+        }
+        markDone([i]);
+      }
+      markDone([n-1]);
+    }else if(algo==='insertion'){
+      for(let i=1;i<n;i++){
+        if(token.cancelled)throw'X';
+        let key=a[i],j=i-1;
+        se.textContent='Insertion: вставляю a['+i+']='+key+' у [0..'+(i-1)+']';
+        hlBars(i,i,'var(--yw)');
+        await sleepS(getDelay());
+        while(j>=0&&a[j]>key){
+          if(token.cancelled)throw'X';
+          cmp++;swp++;
+          se.textContent='Insertion: зсуваю a['+j+']='+a[j]+' вправо (бо >'+key+')';
+          hlBars(j,j+1,'var(--rd)');
+          a[j+1]=a[j];
+          updVals(a);
+          await sleepS(getDelay());
+          j--;
+        }
+        a[j+1]=key;
+        updVals(a);
+        for(let k=0;k<=i;k++)markDone([k]);
+        await sleepS(getDelay());
+      }
+    }else if(algo==='quick'){
+      async function qs(lo,hi){
+        if(token.cancelled)throw'X';
+        if(lo<hi){
+          let pv=a[hi],pi=lo-1;
+          se.textContent='Quick: опорний a['+hi+']='+pv+', ділю ['+lo+'..'+hi+']';
+          for(let j=lo;j<hi;j++){
+            if(token.cancelled)throw'X';
+            cmp++;
+            se.textContent='Quick: a['+j+']='+a[j]+' vs опорний '+pv;
+            hlBars(j,hi,'var(--yw)');
+            await sleepS(getDelay());
+            if(a[j]<pv){
+              pi++;
+              if(pi!==j){
+                swp++;
+                se.textContent='Quick: МІНЯЮ a['+pi+'] ↔ a['+j+']';
+                hlBars(pi,j,'var(--rd)');
+                let tmp=a[pi];a[pi]=a[j];a[j]=tmp;
+                updVals(a);
+                await sleepS(getDelay());
+              }
+            }
+          }
+          pi++;
+          if(pi!==hi){
+            swp++;
+            se.textContent='Quick: опорний на місце';
+            hlBars(pi,hi,'var(--rd)');
+            let tmp=a[pi];a[pi]=a[hi];a[hi]=tmp;
+            updVals(a);
+            await sleepS(getDelay());
+          }
+          markDone([pi]);
+          await qs(lo,pi-1);
+          await qs(pi+1,hi);
+        }else if(lo===hi){
+          markDone([lo]);
+        }
+      }
+      await qs(0,n-1);
+      for(let i=0;i<n;i++)markDone([i]);
+    }
+    sortArr=a;
+    se.textContent='✅ ГОТОВО! Порівнянь: '+cmp+', обмінів: '+swp;
+  }catch(e){
+    if(e==='X')se.textContent='⏹ Зупинено.';
+    else throw e;
+  }
+  sortCancel=null;document.getElementById('btnStop').style.display='none';
+}
+
+// ==================== BIG O (simple display, interactive version already in card) ====================
+// ==================== NUMBER CONVERTER ====================
+let cnum=42;
+function renderBits(){
+  const ct=document.getElementById('bitToggles');ct.innerHTML='';
+  const bin=(cnum&0xFF).toString(2).padStart(8,'0');
+  for(let i=7;i>=0;i--){
+    const bv=bin[7-i],val=Math.pow(2,i);
+    const dv=document.createElement('div');dv.className='bit '+(bv==='1'?'on':'off');
+    dv.innerHTML=bv+'<span class="pow">2<sup>'+i+'</sup></span>';
+    dv.onclick=()=>{cnum^=val;syncBits();};ct.appendChild(dv);
+  }
+  document.getElementById('ndec').value=cnum;
+  document.getElementById('nbin').value=(cnum&0xFF).toString(2).padStart(8,'0');
+  document.getElementById('nhex').value=(cnum&0xFF).toString(16).toUpperCase().padStart(2,'0');
+  document.getElementById('twosInfo').textContent=((cnum&0x80)?cnum-256:cnum);
+}
+function fromDec(){cnum=parseInt(document.getElementById('ndec').value)||0;syncBits();}
+function fromBin(){cnum=parseInt(document.getElementById('nbin').value.replace(/[^01]/g,''),2)||0;syncBits();}
+function fromHex(){cnum=parseInt(document.getElementById('nhex').value.replace(/[^0-9a-fA-F]/g,''),16)||0;syncBits();}
+function syncBits(){renderBits();}
+
+// ==================== SQL ====================
+const students=[{id:1,name:'Анна',group_name:'ІТ-21',score:92},{id:2,name:'Богдан',group_name:'ІТ-21',score:78},{id:3,name:'Віктор',group_name:'ІТ-22',score:85},{id:4,name:'Галина',group_name:'ІТ-22',score:95},{id:5,name:'Дмитро',group_name:'ІТ-21',score:65},{id:6,name:'Олена',group_name:'ІТ-23',score:88},{id:7,name:'Петро',group_name:'ІТ-23',score:73},{id:8,name:'Софія',group_name:'ІТ-22',score:91}];
+function runSQL(type){
+  let r=[],c=[];if(type==='select *'){r=[...students];c=['id','name','group_name','score'];}
+  else if(type==='where'){r=students.filter(s=>s.score>80);c=['id','name','group_name','score'];}
+  else if(type==='group'){let g={};students.forEach(s=>{if(!g[s.group_name])g[s.group_name]=[];g[s.group_name].push(s.score);});r=Object.entries(g).map(([n,s])=>({group_name:n,avg_score:(s.reduce((a,b)=>a+b,0)/s.length).toFixed(1)}));c=['group_name','avg_score'];}
+  else if(type==='order'){r=[...students].sort((a,b)=>b.score-a.score);c=['id','name','group_name','score'];}
+  else if(type==='having'){let g={};students.forEach(s=>{if(!g[s.group_name])g[s.group_name]=[];g[s.group_name].push(s.score);});r=Object.entries(g).filter(([,s])=>s.length>=2).map(([n,s])=>({group_name:n,cnt:s.length,best:Math.max(...s)}));c=['group_name','cnt','best'];}
+  document.getElementById('sqlRes').innerHTML='<table><tr>'+c.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+r.map(row=>'<tr>'+c.map(x=>'<td>'+row[x]+'</td>').join('')+'</tr>').join('')+'</table><p style="font-size:.72rem;color:var(--tx2)">Рядків: <b>'+r.length+'</b></p>';
+}
+
+// ==================== HASH ====================
+async function doHash(){const hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(document.getElementById('hashIn').value));document.getElementById('hashOut').textContent=Array.from(new Uint8Array(hb)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+
+// ==================== TRUTH TABLE ====================
+function ttable(op){
+  const rows=[[0,0],[0,1],[1,0],[1,1]];let res=[],sym='',expl='';
+  if(op==='AND'){res=[0,0,0,1];sym='∧';expl='True ТІЛЬКИ коли ОБИДВА True.';}
+  else if(op==='OR'){res=[0,1,1,1];sym='∨';expl='True коли ХОЧА Б ОДИН True.';}
+  else if(op==='XOR'){res=[0,1,1,0];sym='⊕';expl='True коли значення РІЗНІ.';}
+  else if(op==='IMP'){res=[1,1,0,1];sym='→';expl='False ТІЛЬКИ коли A=True, B=False («з правди не слідує брехня»).';}
+  else if(op==='NAND'){res=[1,1,1,0];sym='|';expl='False ТІЛЬКИ коли ОБИДВА True (NOT AND).';}
+  else if(op==='EQ'){res=[1,0,0,1];sym='↔';expl='True коли значення ОДНАКОВІ (еквіваленція).';}
+  document.getElementById('ttRes').innerHTML='<table><tr><th>A</th><th>B</th><th>A'+sym+'B</th></tr>'+rows.map(([a,b],i)=>'<tr><td style="color:'+(a?'var(--gr)':'var(--rd)')+'">'+(a?'T':'F')+'</td><td style="color:'+(b?'var(--gr)':'var(--rd)')+'">'+(b?'T':'F')+'</td><td style="color:'+(res[i]?'var(--gr)':'var(--rd)')+';font-weight:700">'+(res[i]?'T':'F')+'</td></tr>').join('')+'</table>';
+  document.getElementById('ttExpl').textContent=expl;
+}
+
+// ==================== PROBABILITY ====================
+let cf={h:0,t:0};
+function flip(n){for(let i=0;i<n;i++)Math.random()<0.5?cf.h++:cf.t++;drawCoin();}
+function resetCoin(){cf.h=0;cf.t=0;drawCoin();}
+function drawCoin(){
+  const t=cf.h+cf.t;
+  document.getElementById('coinStats').innerHTML=`Орел: ${cf.h} (${t?((cf.h/t)*100).toFixed(1):0}%) | Решка: ${cf.t} (${t?((cf.t/t)*100).toFixed(1):0}%) | Всього кидків: ${t}`;
+  const ch=document.getElementById('coinChart');ch.innerHTML='';
+  const mx=Math.max(cf.h,cf.t,1);
+  [{v:cf.h,c:'var(--ac)'},{v:cf.t,c:'var(--gr)'}].forEach(d=>{const cl=document.createElement('div');cl.className='prob-col';cl.style.height=(d.v/mx*140+10)+'px';cl.style.background=d.c;ch.appendChild(cl);});
+}
+
+// ==================== SUBNET ====================
+function calcSub(){
+  const ip=document.getElementById('sip').value.trim(),pf=parseInt(document.getElementById('spr').value)||24;
+  const p=ip.split('.').map(Number);
+  if(p.length!==4||p.some(x=>isNaN(x)||x<0||x>255)){document.getElementById('subRes').innerHTML='<p style="color:var(--rd)">Некоректна IP</p>';return;}
+  const ipInt=(p[0]<<24)|(p[1]<<16)|(p[2]<<8)|p[3],msk=~((1<<(32-pf))-1)>>>0,net=ipInt&msk,bc=net|(~msk>>>0);
+  const toIp=v=>[(v>>24)&0xFF,(v>>16)&0xFF,(v>>8)&0xFF,v&0xFF].join('.');
+  document.getElementById('subRes').innerHTML=[['Адреса мережі',toIp(net)+'/'+pf],['Broadcast',toIp(bc)],['Діапазон хостів',toIp(net+1)+' – '+toIp(bc-1)],['Хостів',pf===32?'1':pf===31?'2':(Math.pow(2,32-pf)-2).toLocaleString()],['Маска',toIp(msk)]].map(([l,v])=>'<div class="sub-i"><div class="lbl">'+l+'</div><div class="val">'+v+'</div></div>').join('');
+}
+
+// ==================== NEURAL NET ====================
+let nnPts=[],nnCls=0,nnW=null;
+function toggleNN(){nnCls=1-nnCls;var b=document.getElementById('nnCls');if(b)b.textContent='Клас: '+(nnCls===0?'🔵 Синій':'🟠 Помаранчевий');}
+function drawNN(){
+  var cv=document.getElementById('nnC');if(!cv)return;
+  var cx=cv.getContext('2d');
+  cx.clearRect(0,0,cv.width,cv.height);
+  if(nnW){var id=cx.createImageData(cv.width,cv.height);
+    for(var px=0;px<cv.width;px++)for(var py=0;py<cv.height;py++){var x=px/cv.width*2-1,y=-(py/cv.height*2-1),z=nnW[0]*x+nnW[1]*y+nnW[2],p=1/(1+Math.exp(-z));var idx=(py*cv.width+px)*4,a=Math.abs(p-0.5)*2;id.data[idx]=p>0.5?255*a:0;id.data[idx+1]=p>0.5?140*a:80*a;id.data[idx+2]=p>0.5?0:255*a;id.data[idx+3]=Math.min(a*70,70);}
+    cx.putImageData(id,0,0);}
+  nnPts.forEach(function(pt){var px=(pt.x+1)/2*cv.width,py=(-pt.y+1)/2*cv.height;cx.beginPath();cx.arc(px,py,5,0,Math.PI*2);cx.fillStyle=pt.c===0?'#3b82f6':'#f97316';cx.fill();cx.strokeStyle='#fff';cx.lineWidth=1.5;cx.stroke();});
+}
+function trainStep(){if(nnPts.length===0)return;if(!nnW)nnW=[Math.random()*0.1-0.05,Math.random()*0.1-0.05,0];var pt=nnPts[Math.floor(Math.random()*nnPts.length)],z=nnW[0]*pt.x+nnW[1]*pt.y+nnW[2],pred=1/(1+Math.exp(-z)),err=pred-pt.c,lr=0.15;nnW[0]-=lr*err*pt.x;nnW[1]-=lr*err*pt.y;nnW[2]-=lr*err;var loss=0;nnPts.forEach(function(p){var zz=nnW[0]*p.x+nnW[1]*p.y+nnW[2],pp=1/(1+Math.exp(-zz));loss+=-p.c*Math.log(Math.max(pp,1e-10))-(1-p.c)*Math.log(Math.max(1-pp,1e-10));});var el=document.getElementById('nnLoss');if(el)el.textContent='loss: '+(loss/nnPts.length).toFixed(4);drawNN();}
+function trainLoop(){for(var i=0;i<10;i++)trainStep();}
+function nnReset(){nnPts=[];nnW=null;var el=document.getElementById('nnLoss');if(el)el.textContent='';drawNN();}
+// Attach canvas click handler safely
+(function(){var cv=document.getElementById('nnC');if(cv){cv.onclick=function(e){var r=cv.getBoundingClientRect();nnPts.push({x:(e.clientX-r.left)/cv.width*2-1,y:-(e.clientY-r.top)/cv.height*2+1,c:nnCls});drawNN();};}})();
+
+// ==================== QUIZ ====================
+const ans={q1:1,q2:1,q3:1,q4:2,q5:1,q6:1,q7:1,q8:1,q9:2,q10:1,q11:1,q12:1,q13:1,q14:1,q15:2,q16:1,q17:1,q18:1};
+const expl={
+  q1:'Двійковий пошук ділить масив навпіл на кожному кроці → O(log n).',
+  q2:'Quick Sort у середньому O(n log n), але при невдалому виборі опорного елемента — O(n²).',
+  q3:'Стек = LIFO (Last In, First Out). Як стопка тарілок.',
+  q4:'Доповнювальний код — стандарт. Прямий і обернений мають два представлення нуля.',
+  q5:'У фон-нейманівській архітектурі команди й дані в одній пам\'яті.',
+  q6:'Atomicity = «все або нічого». Транзакція не може виконатись частково.',
+  q7:'Селекція σ (вибір рядків за умовою) = SQL WHERE. Проєкція π = SQL SELECT (вибір стовпців).',
+  q8:'Асиметричне: пара ключів (публічний + приватний). Приклад: RSA, ECC.',
+  q9:'CIA = Confidentiality, Integrity, Availability. Аутентифікація — частина AAA, не CIA.',
+  q10:'Комбінації C(10,2)=10!/(2!·8!)=45. Порядок неважливий → не розміщення.',
+  q11:'A→B хибна ТІЛЬКИ при A=T,B=F. З істини не слідує брехня.',
+  q12:'TCP працює на транспортному рівні (4). IP — мережевий (3). HTTP — прикладний (7).',
+  q13:'/24 = 256 − 2 (мережа + broadcast) = 254 хости.',
+  q14:'Віртуальна пам\'ять = диск як розширення RAM через підкачку сторінок.',
+  q15:'Інкапсуляція = приховування внутрішніх даних, доступ через публічний інтерфейс.',
+  q16:'GPU = одна команда над багатьма даними одночасно → SIMD.',
+  q17:'Supervised (з учителем) — кожен приклад має правильну відповідь (мітку).',
+  q18:'Overfitting = модель добре працює на тренувальних даних, але погано узагальнює.'
+};
+function chk(qid,chosen){
+  var lbs=document.querySelectorAll('#'+qid+' label');
+  if(!lbs||lbs.length===0)return;
+  var ok=ans[qid],fb=document.getElementById(qid+'fb');
+  lbs.forEach(function(l,i){l.className='';if(i===ok)l.classList.add('ok');if(i===chosen&&chosen!==ok)l.classList.add('bad');});
+  if(fb){fb.className='quiz-fb show '+(chosen===ok?'ok':'bad');fb.textContent=(chosen===ok?'✅ Правильно! ':'❌ Ні. ')+expl[qid];}
+  lbs.forEach(function(l){var r=l.querySelector('input');if(r)r.disabled=true;});
+}
+
+// ==================== INIT ====================
+(function(){
+  try{
+    if(document.getElementById('sortBars'))initSort();
+    renderBits();
+    doHash();
+    ttable('AND');
+    drawCoin();
+    calcSub();
+    drawNN();
+  }catch(e){console.error('Init error:',e);}
+})();
+
+// Scroll spy
+window.addEventListener('scroll',()=>{
+  const secs=document.querySelectorAll('.sec'),links=document.querySelectorAll('nav a');
+  let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.getAttribute('id');});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+
+// ==================== TABS ====================
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(tab==='theory'?'Теорія':'ЄФВІ')));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='exam'&&!exLoaded)exInit();
+  window.scrollTo(0,0);
+}
+
+// ==================== EXAM (ЄФВІ 2024) ====================
+var examQuestions=[
+{n:1,q:"Які головні фактори слід враховувати під час вибору операційної системи для вбудованих систем реального часу?",a:{"А":"Відмінності у структурі файлової системи.","Б":"Тип планування завдань та обробки переривань.","В":"Методи оптимізації швидкодії апаратного забезпечення.","Г":"Можливості віддаленого адміністрування через мережу."},c:"Б"},
+{n:2,q:"Яку з перелічених мов програмування використовують як для процедурного, так і для об'єктно-орієнтованого програмування?",a:{"А":"Java.","Б":"Python.","В":"APL.","Г":"Сі."},c:"Б"},
+{n:3,q:"Чим відрізняється функція операційної системи Linux SIGKILL від SIGTERM?",a:{"А":"SIGKILL примусово завершує процес, тоді як SIGTERM дає змогу процесу коректно завершитися.","Б":"SIGKILL зупиняє процес на паузу, SIGTERM вимикає його.","В":"SIGKILL відправляє процес у сплячий режим, SIGTERM відновлює його.","Г":"SIGKILL та SIGTERM виконують одне й те саме."},c:"А"},
+{n:4,q:"Як в об'єктно-орієнтованому програмуванні називається концепція, головною метою якої є зменшення складності за рахунок приховування непотрібних деталей від користувача?",a:{"А":"Абстракція.","Б":"Інкапсуляція.","В":"Поліморфізм.","Г":"Спадкування."},c:"А"},
+{n:5,q:"У нотації класів UML-діаграм клас зображують як прямокутник з горизонтальними секціями. Яка з цих секцій, починаючи відлік згори, призначена для методів (функцій та операцій) класу?",a:{"А":"Перша.","Б":"Друга.","В":"Третя.","Г":"Четверта."},c:"В"},
+{n:6,q:"На якому етапі життєвого циклу програмного забезпечення (SDLC) предметна область декомпозується на окремі об'єкти або на компоненти (за компонентного проєктування), а програма ‒ на функціональні компоненти?",a:{"А":"Планування (Planning).","Б":"Дизайн (Design).","В":"Аналіз вимог (Analysis).","Г":"Розробка (Coding)."},c:"Б"},
+{n:7,q:"Вкажіть основні характеристики файлу?",a:{"А":"Ім’я, розмір, тип даних, дата створення та модифікації.","Б":"Ім’я, тип процесора, оперативна пам’ять, обсяг жорсткого диска.","В":"Ім’я, пароль, доступні права, дата останнього доступу.","Г":"Ім’я, розширення, тип файлу, дата архівування."},c:"А"},
+{n:8,q:"Яка із вказаних мережних технологій базується на використанні силових електромереж для високошвидкісного інформаційного обміну?",a:{"А":"Low Power Short Range Networks.","Б":"Low Power Wide Area Networks.","В":"Power Line Communication Networks.","Г":"Нigh-voltage Еlectrical Networks."},c:"В"},
+{n:9,q:"У базі планується зберігати дані про студентів, дисципліни, які вивчають студенти, та оцінки студентів з дисциплін. З кожної дисципліни студент може мати одну оцінку або не мати жодної. Яка із запропонованих ER-діаграм у нотації crow's foot є коректною і найповнішою моделлю описаних даних?",h:"<p>У базі планується зберігати дані про студентів, дисципліни, які вивчають студенти, та оцінки студентів з дисциплін. З кожної дисципліни студент може мати одну оцінку або не мати жодної. Яка із запропонованих ER-діаграм у нотації crow’s foot є коректною і найповнішою моделлю описаних даних?</p>",a:{"А":"<img src=\"img/ansa_33630.png\">","Б":"<img src=\"img/ansb_33630.png\">","В":"<img src=\"img/ansc_33630.png\">","Г":"<img src=\"img/ansd_33630.png\">"},c:"А"},
+{n:10,q:"Який засіб застосовується для виявлення шкідливого програмного забезпечення у мережному трафіку?",a:{"А":"Firewall.","Б":"IPS.","В":"VPN-concentrator.","Г":"WLC."},c:"Б"},
+{n:11,q:"В якій операційній системі буде правильним запис шляху до файлу у вигляді \\Бібліотека\\Зображення\\Image.jpeg?",a:{"А":"MacOS.","Б":"Windows.","В":"Linux.","Г":"Android."},c:"Б"},
+{n:12,q:"Для чого призначений драйвер пристрою?",a:{"А":"Забезпечення «взаємодії» операційної системи з апаратним пристроєм.","Б":"Перекладу команди операційної системи на мову машинного коду.","В":"Організації доступ до файлів на жорсткому диску.","Г":"Контролювання роботи мережних протоколів."},c:"А"},
+{n:13,q:"Чому дорівнює границя \\(\\underset{n \\rightarrow \\infty}{lim}\\frac 1n\\)?",a:{"А":"\\(\\infty.\\)","Б":"\\(0.\\)","В":"\\(-1.\\)","Г":"\\(1.\\)"},c:"Б"},
+{n:14,q:"Який із перелічених термінів стосується фізичного рівня організації файлової системи?",a:{"А":"Індексний вузол.","Б":"Метафайл.","В":"Атрибут.","Г":"Блок."},c:"Г"},
+{n:15,q:"Вкажіть порядок числа \\(\\mathrm{A}_2=1011\\mathord{,}01\\) для подальшого представлення його у формі з рухомою комою в \\(32\\text{-розрядному}\\) форматі.",a:{"А":"\\(100.\\)","Б":"\\(011.\\)","В":"\\(001.\\)","Г":"\\(101.\\)"},c:"Б"},
+{n:16,q:"Вкажіть формулу логістичної (сигмоїдної) функції активації, яка визначає вихідний сигнал нейрона.",a:{"А":"\\(F(x)=\\frac{1}{1+exp(-x)}\\)","Б":"\\(\\theta(x)=\\left\\{\\begin{array}{l}0,\\ x\\lt 0;\\\\1,\\ x\\ge 0.\\end{array}\\right.\\)","В":"\\(tanh(x)=2\\cdot sigmoid(2x)-1\\)","Г":"\\(f(x)=max(0, x)\\)"},c:"А"},
+{n:17,q:"До якого типу навчання належить метод k-найближчих сусідів (kNN)?",a:{"А":"Навчання без учителя.","Б":"Навчання з учителем.","В":"Навчання з підкріпленням.","Г":"Напівконтрольоване навчання."},c:"Б"},
+{n:18,q:"Яка з властивостей є обов'язковою для маршрутної матриці у теорії графів?",a:{"А":"Містить одиниці в головній діагоналі.","Б":"Є обернено симетричною.","В":"Відображає усі можливі маршрути між вершинами графа.","Г":"Може бути порожньою у ненапрямленому графі."},c:"В"},
+{n:19,q:"Масив із \\(5\\) елементів зберігає неповторювані значення. Якою є кількість можливих комбінацій розташування елементів у масиві?",a:{"А":"\\(5.\\)","Б":"\\(25.\\)","В":"\\(120.\\)","Г":"\\(250.\\)"},c:"В"},
+{n:20,q:"У партії з \\(20\\) деталей \\(4\\) браковані. Яка ймовірність того, що навмання взята деталь буде стандартною?",a:{"А":"\\(0\\mathord{,}8.\\)","Б":"\\(0\\mathord{,}25.\\)","В":"\\(0\\mathord{,}5.\\)","Г":"\\(0\\mathord{,}2.\\)"},c:"А"},
+{n:21,q:"Що означає еквіфінальність системи?",a:{"А":"Здатність системи передбачити та запобігати внутрішнім і зовнішнім загрозам.","Б":"Властивість системи ефективно виконувати свої функції протягом деякого часу.","В":"Здатність системи досягти кінцевого стану незалежно від часу та початкових умов.","Г":"Властивість системи, що полягає в наявності множини зв’язків між нею та зовнішнім середовищем."},c:"В"},
+{n:22,q:"Яка характеристика роботи з інтерпретатором, порівняно з компілятором, є правильною?",a:{"А":"Програми, написані інтерпретованою мовою, важче налагоджувати.","Б":"Інтерпретатори не дають змогу автоматично керувати пам’яттю, що збільшує ризики помилок пам’яті.","В":"Швидкість виконання компільованої програми перевершує швидкість інтерпретованої програми.","Г":"Інтерпретований код працює швидше порівняно зі скомпільованим кодом."},c:"В"},
+{n:23,q:"Дано відношення &laquo;Кіт&raquo; з атрибутами &laquo;ім'я&raquo;, &laquo;стать&raquo;, &laquo;вік&raquo;, якому відповідають дві різні таблиці у деяких реляційних базах даних. У таблицях записи про котів вважаються однаковими, якщо збігаються значення усіх атрибутів. Які операції реляційної алгебри слід виконати у запиті до вказаних таблиць баз даних, щоб отримати значення атрибуту &laquo;ім'я&raquo; для усіх записів про котів, які є лише в одній таблиці?",a:{"А":"Різницю та проєкцію.","Б":"Проєкцію та вибірку.","В":"Перетин та вибірку.","Г":"Вибірку та різницю."},c:"А"},
+{n:24,q:"Динаміку складних систем характеризують моделлю \\(y(t)=R(x,z,t),\\) де \\(x, z\\) – параметри системи, \\(t\\) – час, \\(R\\) – оператор системи, який діє на вхідну величину \\(x(t) z(t).\\) Складено рівняння, що описують деякі системи. Вкажіть рівняння нестаціонарної системи без пам’яті.",a:{"А":"\\(y(t)=R[x(t)].\\)","Б":"\\(y(t)=R[x(t), z].\\)","В":"\\(y(t)=R[x(t), z(t)].\\)","Г":"\\(y(t)=R[x(t-\\Delta t), z(t)].\\)"},c:"В"},
+{n:25,q:"Що відповідно до еталонної моделі взаємодії відкритих систем використовується для взаємодії між сусідніми рівнями системи?",a:{"А":"Протоколи.","Б":"Інтерфейси.","В":"Канали зв’язку.","Г":"Лінії зв’язку."},c:"Б"},
+{n:26,q:"Які загрози інформаційній безпеці належать до класу &laquo;за характером дії на інформаційну систему&raquo;?",a:{"А":"Загальні і локальні.","Б":"Внутрішні і зовнішні.","В":"Активні і пасивні.","Г":"Природні і штучні."},c:"В"},
+{n:27,q:"Що відбудеться з пакетом даних у разі його передачі від одного комп'ютера до іншого, якщо комп'ютер-отримувач та комп'ютер-відправник розташовані в різних мережах (підмережах) складової мережі?",a:{"А":"Пакет буде втрачено.","Б":"Пакет буде відправлено до найближчого ресивера.","В":"Пакет буде відправлено до шлюзу за замовчуванням.","Г":"Пакет буде повернуто до відправника."},c:"В"},
+{n:28,q:"Яка класична абревіатура використовується для тлумачення структури даних &laquo;стек&raquo;?",a:{"А":"LIFO.","Б":"LILO.","В":"FIFO.","Г":"FILO."},c:"А"},
+{n:29,q:"Що називають кластеризацією у контексті операційних систем?",a:{"А":"Об’єднання кількох комп’ютерів в єдину систему для розподілу навантаження.","Б":"Метод резервування даних, під час якого копія даних зберігається на кількох носіях.","В":"Програмне забезпечення для виявлення та виправлення помилок в операційній системі.","Г":"Зниження навантаження на систему за рахунок відключення невикористовуваних служб."},c:"А"},
+{n:30,q:"Якщо згідно з методом пошуку у просторі станів рухаються від вихідних вершин до цільової вершини графа, спочатку аналізують структури на всіх вузлах одного рівня, а потім ‒ на вузлах наступних рівнів, то як має бути класифікований такий метод?",a:{"А":"Прямий пошук в ширину.","Б":"Прямий пошук в глибину.","В":"Зворотний пошук в ширину.","Г":"Зворотний пошук в глибину."},c:"А"},
+{n:31,q:"Нехай \\(x\\) ‒ аргумент функції активації \\(f(x),\\ c\\) ‒ константа. Співставте назвам функцій активації штучного нейрона номери формул, якими вони визначаються.         \\begin{gather*}             f(x)=cx;\\\\[7pt]             f(x)=e^{-cx^2};\\\\[6pt]             f(x)=\\frac{1}{1+e^{-cx}};\\\\[6pt]             f(x)=\\left\\{\\begin{array}{l}1,\\ x\\ge 0;\\\\0,\\ x\\lt 0.\\end{array}\\right.         \\end{gather*}",a:{"А":"Лінійна ‒ 1, порогова ‒ 4, сигмоїдна ‒ 3, радіально-базисна Гауса ‒ 2.","Б":"Лінійна ‒ 2, порогова ‒ 3, сигмоїдна ‒ 1, радіально-базисна Гауса ‒ 4.","В":"Лінійна ‒ 3, порогова ‒ 2, сигмоїдна ‒ 4, радіально-базисна Гауса ‒ 1.","Г":"Лінійна ‒ 4, порогова ‒ 1, сигмоїдна ‒ 2, радіально-базисна Гауса ‒ 3."},c:"А"},
+{n:32,q:"Що таке Plug and Play (PnP) у контексті периферійних пристроїв?",a:{"А":"Технологія для зберігання даних у хмарі.","Б":"Технологія, яка дає змогу підключати пристрої до комп’ютера з автоматичним встановленням драйверів.","В":"Технологія для віддаленого керування пристроями.","Г":"Технологія для підключення пристроїв через бездротову мережу."},c:"Б"},
+{n:33,q:"Що є однією з вимог до побудови відношення реляційної моделі бази даних?",a:{"А":"Значення атрибутів у кортежах відношення мають бути атомарними.","Б":"Порядок кортежів у інформаційному наповненні відношення має залежати від їх кількості.","В":"Має бути встановлено обмеження на види фізичних моделей зберігання бази даних.","Г":"Мають виконуватися транзакції між кортежами сусідніх рівнів відношення реляційної моделі бази даних."},c:"А"},
+{n:34,q:"Який із принципів НЕ використовується в методології Kanban?",a:{"А":"Заохочення лідерства на всіх рівнях.","Б":"Підтримка потокових процесів.","В":"Робота короткими відрізками.","Г":"Постійне удосконалення процесу без різких змін."},c:"В"},
+{n:35,q:"Яка з наведених груп комунікаційних технологій та протоколів використовується для передачі даних в середовищі інтернету речей?",a:{"А":"ZigBee, WiFi, PLC.","Б":"Bluetooth, FTP, LoWPAN.","В":"IRC, ZigBee, WiFi.","Г":"LoWPAN, PLC, IRC."},c:"А"},
+{n:36,q:"Який із перелічених нижче патернів є структурним дизайн-патерном?",a:{"А":"Singleton.","Б":"Builder.","В":"Prototype.","Г":"Bridge."},c:"Г"},
+{n:37,q:"Відношення &laquo;Заголовки замовлень&raquo; містить атрибути &laquo;Код замовлення&raquo;, &laquo;Код клієнта&raquo;, &laquo;Назва клієнта&raquo;, &laquo;Код співробітника&raquo;, &laquo;Назва співробітника&raquo;, &laquo;Дата замовлення&raquo;. Які з наведених атрибутів мають бути перенесені в інші відношення під час зведення відношення &laquo;Заголовки замовлень&raquo; до третьої нормальної форми (3NF)?",a:{"А":"«Назва клієнта» та «Назва співробітника».","Б":"«Код клієнта» та «Код співробітника».","В":"«Код замовлення» та «Дата замовлення».","Г":"«Код клієнта» та «Назва клієнта»."},c:"А"},
+{n:38,q:"Обчисліть границю \\(\\underset{\\Delta x \\rightarrow 0}{lim}\\frac{(x+\\Delta x)^3-x^3}{\\Delta x},\\) якщо вона існує.",a:{"А":"\\(0.\\)","Б":"\\(3.\\)","В":"\\(3x^2.\\)","Г":"Границі не існує."},c:"В"},
+{n:39,q:"Якій моделі представлення знань відповідає твердження: &laquo;Якщо геометрична фігура має чотири прямі кути, а діагоналі чотирикутника перетинаються та діляться точкою перетину навпіл, то цей паралелограм є прямокутником&raquo;?",a:{"А":"Логічна модель.","Б":"Фреймова модель.","В":"Алгоритмічна модель.","Г":"Продукційна модель."},c:"Г"},
+{n:40,q:"Обчисліть суму двох двійкових чисел \\(10000111\\) та \\(00110110,\\) представлених у доповнювальному коді розрядністю \\(8\\) біт.",a:{"А":"\\(-67.\\)","Б":"\\(189.\\)","В":"\\(177.\\)","Г":"\\(-79.\\)"},c:"А"},
+{n:41,q:"Яким чином можна оптимізувати SQL-запит з WHERE?",a:{"А":"Створити індекси на стовпці, що використовуються в WHERE.","Б":"Використовувати тільки SELECT *, щоб гарантувати, що будуть отримані всі дані.","В":"Додати до запиту GROUP BY на стовпці, що використовують WHERE.","Г":"Додати до запиту JOIN на стовпці, що використовують WHERE."},c:"А"},
+{n:42,q:"Яка із зазначених форм кіберрозвідки є легальною за браком додаткових дозволів?",a:{"А":"Візуальне спостереження технічними засобами.","Б":"Копіювання інформації з обмеженим доступом.","В":"Проникнення на об’єкт критичної інфраструктури.","Г":"Прослуховування розмов суб’єкта кіберрозвідки."},c:"А"},
+{n:43,q:"Який мережний протокол стека TCP/IP встановлює з'єднання перед початком передавання даних?",a:{"А":"TCP.","Б":"UDP.","В":"IP.","Г":"ICMP."},c:"А"},
+{n:44,q:"Що передбачає водоспадна (каскадна) модель життєвого циклу ІТ-проєктів?",a:{"А":"Послідовне виконання етапів проєкту, без можливості повернення до попередніх етапів.","Б":"Розбивку проєкту на менші ітерації, кожна з яких включає всі етапи життєвого циклу.","В":"Постійний випуск нових версій продукту.","Г":"Розбивку на короткі цикли, протягом яких команда розробників працює над невеликими ділянками функціоналу."},c:"А"},
+{n:45,q:"Як називають вибірку даних, за якою будують модель на основі машинного навчання?",a:{"А":"Навчальна вибірка.","Б":"Тестова вибірка.","В":"Валідаційна вибірка.","Г":"Контрольна вибірка."},c:"А"},
+{n:46,q:"Що являє собою пошук рішень у просторі станів?",a:{"А":"Побудову дерева пошуку на основі графів.","Б":"Визначення послідовності операторів, які відображають початкові стани в цільові.","В":"Задання кількості правил перетворення початкових даних у кінцевий результат.","Г":"Визначення функції, що вибирає наступний вузол, який підлягає розгортанню."},c:"Б"},
+{n:47,q:"До якого етапу виконуються розбиття завдань на підзавдання у стратегії розроблення алгоритмів &laquo;розділяй та володарюй&raquo;?",a:{"А":"Поки всі підзавд��ння не стануть елементарними.","Б":"Поки не отримаємо відсортовану множину значень.","В":"Поки кількість підзавдань не збільшиться вдвічі.","Г":"Поки не отримаємо оптимальний розв’язок."},c:"А"},
+{n:48,q:"Яке з-поміж наведених тверджень є визначенням поняття &laquo;Кіберпростір&raquo; згідно із Законом України &laquo;Про основні засади забезпечення кібербезпеки України&raquo;?",a:{"А":"Середовище, яке надає можливості для здійснення комунікацій та/або реалізації суспільних відносин, утворене в результаті функціонування сумісних комунікаційних систем та забезпечення електронних комунікацій з використанням мережі «Інтернет» та/або інших глобальних мереж ��ередачі даних.","Б":"Організована сукупність об’єктів, створених з метою забезпечення надійності та безперебійності роботи державних інформаційних ресурсів, кіберзахисту, зберігання національних електронних інформаційних ресурсів, резервного копіювання інформації та відомостей національних електронних інформаційних ресурсів.","В":"Системи передавання, комутації або маршрутизації, обладнання та інші ресурси, що забезпечують електронні комунікації, у тому числі засоби і пристрої зв’язку, комп’ютери, інша комп’ютерна техніка, інформаційно-телекомунікаційні системи, які мають доступ до мережі «Інтернет» та/або інших глобальних мереж передачі даних.","Г":"Автоматизована або автоматична система, яка є сукупністю обладнання, засобів, комплексів та систем обробки, передачі та приймання, призначена для організаційного управління технологічними процесами, незалежно від наявності доступу системи до мережі «Інтернет» та інших глобальних мереж передачі даних."},c:"А"},
+{n:49,q:"На порушення якої властивості спрямовані DDoS-атаки?",a:{"А":"Конфіденційність.","Б":"Цілісність.","В":"Доступність.","Г":"Спостережність."},c:"В"},
+{n:50,q:"Для виконання яких дій під час побудови запиту до реляційної бази даних використовуються оператори мови SQL?",a:{"А":"Додавання конкретних даних у базу даних і пов��рнення результату обчислення.","Б":"Побудови фільтра для значень даних бази даних і сортування результату.","В":"Класифікації значень даних у базі даних та повернення результату кластеризації.","Г":"Маніпуляції над конкретними даними у базі даних та повернення результату обчислення."},c:"Г"},
+{n:51,q:"Потрібно запрограмувати сховище даних &ndash; стек, членами класу якого є: //дані-члени; //конструктор; //деструктор та //функції-члени інтерфейсу стека",h:"<p>Потрібно запрограмувати сховище даних – стек, членами класу якого є: //дані-члени; //конструктор; //деструктор та //функції-члени інтерфейсу стека</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/11.png\"  /></p><p>Який опис відповідає деструктору класу?</p>",a:{"А":"<img src=\"img/ansa_33672.png\">","Б":"<img src=\"img/ansb_33672.png\">","В":"<img src=\"img/ansc_33672.png\">","Г":"<img src=\"img/ansd_33672.png\">"},c:"Б"},
+{n:52,q:"Яке з наведених тверджень описує концепцію інкапсуляції в об'єктно-орієнтованому програмуванні та її вплив на розробку програмного забезпечення?",a:{"А":"Дає змогу класам наслідувати методи та властивості від кількох базових класів, забезпечуючи багаторазове використання коду.","Б":"Обмежує доступ до внутрішніх даних об’єкта, надаючи доступ до них лише через визначені методи, що підвищує безпеку та надійність коду.","В":"Дає змогу об’єктам автоматично зв’язуватися один з одним, зменш��ючи необхідність явного виклику методів.","Г":"Забезпечує автоматичне видалення об’єктів з пам’яті після завершення їх використання, підвищуючи ефективність використання ресурсів."},c:"Б"},
+{n:53,q:"Яка основна перевага двобічнозв'язаних списків над однозв'язаними?",a:{"А":"Займають менше пам’яті.","Б":"Дають змогу двобічного обходу.","В":"Дають змогу швидко здійснювати операції вставлення та видалення елементів.","Г":"Мають простішу структуру."},c:"Б"},
+{n:54,q:"Який строк чинності наданого грифа секретності &laquo;особливої важливості&raquo;?",a:{"А":"30 років.","Б":"20 років.","В":"10 років.","Г":"5 років."},c:"А"},
+{n:55,q:"Як називається двійкове дерево пошуку, в якому ліве та праве піддерево кожного вузла відрізняються за висотою щонайбільше на одну одиницю?",a:{"А":"Дерево AVL.","Б":"Червоно-чорне дерево.","В":"Дерево Фібоначчі.","Г":"Просте двійкове дерево пошуку."},c:"А"},
+{n:56,q:"Яким способом можна зобразити на площині планарний граф?",a:{"А":"Без перетину ребер.","Б":"Без перетину кратних ребер.","В":"Без перетину петель.","Г":"Без перетину петель і кратних ребер."},c:"А"},
+{n:57,q:"Задано функцію \\(f(x)=\\cos^3x, x\\in \\mathbb{R}.\\) Визначте \\(f'(x).\\)",a:{"А":"\\(3\\cos^2x\\cdot \\sin x.\\)","Б":"\\(-3\\cos^2x\\cdot \\sin x.\\)","В":"\\(-3\\sin^2x\\cdot \\cos x.\\)","Г":"\\(3\\sin^2x\\cdot \\cos x.\\)"},c:"Б"},
+{n:58,q:"Що є головною відмінністю Гарвардської архітектури від інших архітектур?",a:{"А":"Роздільне виконання операцій введення і виведення.","Б":"Роздільне виконання процесором читання команди та читання/запису даних з/в пам’ять.","В":"Роздільне зберігання команд і даних у пам’яті.","Г":"Роздільне зберігання у пам’яті операцій введення даних з різних пристроїв."},c:"В"},
+{n:59,q:"Яке з наведених макровизначень є правильним?",a:{"А":"Mac Macro \\(\\mathrm{a=1;\\ b=a;\\ cin\\gt\\gt a;}\\) EndM.","Б":"Test \\(\\mathrm{cin\\gt\\gt a;\\ b=a;\\ c+=b;}\\) EndM.","В":"Test \\(\\mathrm{a=1;\\ b=a;\\ cin\\gt\\gt c;}\\) EndM.","Г":"define MyMacro \\(\\mathrm{cin\\gt\\gt a;\\ b=a;\\ c+=b;}\\) EndM."},c:"А"},
+{n:60,q:"Який оператор SQL використовується для виконання операції об'єднання результатів двох або більше запитів у єдиний результат, виключаючи дублікати рядків?",a:{"А":"UNION.","Б":"INNER JOIN.","В":"OUTER JOIN.","Г":"SELECT."},c:"А"},
+{n:61,q:"Множина \\(\\mathrm{A}\\) містить \\(5\\) елементів, а множина \\(\\mathrm{B}\\) – \\(8\\) елементів. Скільки елементів може містити різниця множин \\(\\mathrm{B}\\backslash\\mathrm{A}?\\)",a:{"А":"Від \\(3\\) до \\(8\\) елементів.","Б":"Від \\(0\\) до \\(5\\) елементів.","В":"Від \\(0\\) до \\(8\\) елементів.","Г":"Від \\(3\\) до \\(13\\) елементів."},c:"А"},
+{n:62,q:"Що називають базисом числа у позиційній системі числення?",a:{"А":"Найбільше число, яке можна виразити.","Б":"Кількість символів у системі числення.","В":"Розряд числа.","Г":"Вага кожного розряду."},c:"Б"},
+{n:63,q:"Яку характеристику операційної системи називають відмовостійкістю?",a:{"А":"Коректно працювати протягом передбачуваного періоду часу.","Б":"Вчасно і стабільно реагувати на запити користувача.","В":"Захищати від загроз власну цілісність та цілісність даних.","Г":"Продовжувати коректну роботу після помилок."},c:"Г"},
+{n:64,q:"Що в об'єктно-орієнтованому програмуванні дає змогу забезпечити динамічну поведінку об&#39;єктів та є ключовим для реалізації поліморфізму?",a:{"А":"Функції вищого порядку (Higher-Order Functions).","Б":"Статична типізація (Static Typing).","В":"Віртуальні функції та методи (Virtual Functions and Methods).","Г":"Глобальні змінні та константи (Global Variables and Constants)."},c:"В"},
+{n:65,q:"Яку залежність має час передачі повідомлення між абонентами від кількості комутаторів на шляху прямування між ними у мережі з комутацією каналів за умови, що перед початком передачі повідомлення між абонентами вже сформовано канал?",a:{"А":"Лінійну.","Б":"Квадратичну.","В":"Експоненційну.","Г":"Ніяк не залежить."},c:"Г"},
+{n:66,q:"Якому з наведених нижче алгоритмів сортування масиву відповідає часова асимптотична складність \\(n\\bullet\\log(n)\\) у найгіршому випадку?",a:{"А":"Бульбашкове сортування.","Б":"Сортування вибором.","В":"Сортування вставкою.","Г":"Сортування злиттям."},c:"Г"},
+{n:67,q:"Яким є еквівалент десяткової цифри \\(9\\) у двійковій системі числення?",a:{"А":"\\(0014.\\)","Б":"\\(1001.\\)","В":"\\(0102.\\)","Г":"\\(\\mathrm{000A}.\\)"},c:"Б"},
+{n:68,q:"Яку кількість станів передбачає модель SI поширення комп’ютерно-мережевого інфікування.",a:{"А":"\\(0.\\)","Б":"\\(3.\\)","В":"\\(1.\\)","Г":"\\(2.\\)"},c:"Г"},
+{n:69,q:"Який з основних принципів розробки через тестування є важливим для написання тестів перед написанням коду?",a:{"А":"Одиничної відповідальності.","Б":"Інверсії контролю.","В":"Покриття коду тестами.","Г":"Постійного вдосконалення."},c:"В"},
+{n:70,q:"Яка з наведених моделей розробки програмного забезпечення є прикладом водоспадної моделі?",a:{"А":"Agile.","Б":"Scrum.","В":"V-модель.","Г":"Spiral."},c:"В"},
+{n:71,q:"Який вид діаграми, що відповідає концепції об'єктно-орієнтованого проєктування програмного забезпечення та стандарту UML (Unified Modeling Language), наведено на рисунку?",h:"<p>Який вид діаграми, що відповідає концепції об’єктно-орієнтованого проєктування програмного забезпечення та стандарту UML (Unified Modeling Language), наведено на рисунку?</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/71.png\"  width=\"519\" style=\"height: auto;\"  /></p>",a:{"А":"Станів (statechart diagrams).","Б":"Варіантів використання (use case diagram).","В":"Послідовності (sequence diagrams).","Г":"Діяльності (activity diagrams)."},c:"Б"},
+{n:72,q:"Що є ENUM в SQL?",a:{"А":"Функція, яка обчислює числову суму стовпця.","Б":"Тип даних, який зберігає статичний, впорядкований набір значень.","В":"Метод для роботи зі значеннями NULL у таблиці.","Г":"Ключове слово, що використовується для перерахування рядків як результат запиту."},c:"Б"},
+{n:73,q:"Який вид програмування характеризується використанням незмінних даних, рекурсії, лінивих обчислень, чистих функцій?",a:{"А":"Реактивне програмування.","Б":"Узагальнене програмування.","В":"Подійно-орієнтоване програмування.","Г":"Функціональне програмування."},c:"Г"},
+{n:74,q:"Як позначають обчислювальну складність, якщо час роботи алгоритму не залежить від обсягу вхідних даних?",a:{"А":"\\(\\mathrm{O(1)}.\\)","Б":"\\(\\mathrm{O(m)}.\\)","В":"\\(\\mathrm{O(m^2)}.\\)","Г":"\\(\\mathrm{O(1/m)}.\\)"},c:"А"},
+{n:75,q:"Який вхідний степінь (VertexInDegree(V6)) має вершина V6 наведеного орграфа?",h:"<p>Який вхідний степінь (VertexInDegree(V6)) має вершина V6 наведеного орграфа?</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/75.png\"  width=\"248\" style=\"height: auto;\"  /></p>",a:{"А":"\\(1.\\)","Б":"\\(5.\\)","В":"\\(3.\\)","Г":"\\(4.\\)"},c:"Г"},
+{n:76,q:"Вкажіть стаціонарну(-і) точку(-и) функції двох змінних         $$             f(x,y)=-x^3+4xy-2y^2+1.         $$",a:{"А":"\\((1; 1)\\)","Б":"\\((0; 0)\\) та \\(\\left(\\frac 43; \\frac 43\\right).\\)","В":"\\(\\left(\\frac 43; \\frac 43\\right).\\)","Г":"\\((0; 0)\\) та \\((1; 1).\\)"},c:"Б"},
+{n:77,q:"Як у комп'ютерній мережі реалізується технологія комутації каналів?",a:{"А":"Забезпечується формування єдиного фізичного з’єднання між абонентами, що взаємодіють.","Б":"Передбачається зберігання переданих повідомлень в буферній пам’яті проміжних вузлів.","В":"Забезпечується зниження затримок передачі трафіку на комутаторах.","Г":"Реалізується здатність мережі забезпечити необхідний сервіс заданому трафіку."},c:"А"},
+{n:78,q:"Вкажіть метод комутації даних у високошвидкісних каналах &laquo;бекбон (backbone)&raquo;?",a:{"А":"Комутація каналів.","Б":"Комутація повідомлень.","В":"Комутація пакетів.","Г":"Комутація комірок."},c:"Г"},
+{n:79,q:"Виберіть запит до таблиці users з полями ID &ndash; унікальний числовий ідентифікатор користувача, первинний ключ; user_name &ndash; ім'я користувача; login &ndash; логін користувача; password &ndash; пароль, що є аналогом запиту",a:{"А":"SELECT * FROM users.","Б":"SELECT * FROM users WHERE login = 'SYSDBA'.","В":"SELECT ID, user_name, login, password FROM users.","Г":"SELECT ID, user_name, password FROM users WHERE login = 'SYSDBA'."},c:"Б"},
+{n:80,q:"Яким чином процесор виконує код, перетворений компілятором або інтерпретатором у загальному випадку (без JIT-компіляції)?",a:{"А":"Компілятор генерує машинний код з вихідного коду програми для виконання процесором, тоді як у випадку інтерпретатора процесор виконує інструкції інтерпретатора, який виконує вихідний код рядок за рядком.","Б":"Компілятор та інтерпретатор перетворюють вихідний код на байт-код, який потім виконується процесором, що забезпечує високу переносимість програми.","В":"Інтерпретатор перетворює вихідний код програми безпосередньо на машинний код і виконує його без участі процесора, тоді як компілятор зберігає проміжний байт-код для подальшої компіляції на машинний код іншими інструментами.","Г":"Компілятор перетворює вихідний код у байт-код, який потім перетворюється в машинний код інтерпретатором з метою подальшого виконання процесором."},c:"А"},
+{n:81,q:"Що є проблемою у складній системі?",a:{"А":"Малопомітні відхилення у функціонуванні окремих підсистем.","Б":"Ситуаційне реагування за відсутності чітко окреслених цілей діяльності.","В":"Виявлення негативних впливів наявної ситуації на різні елементи та оточення системи.","Г":"Незадовільний стан параметрів за відсутності засобів вирішення ситуації."},c:"Г"},
+{n:82,q:"Яка з цих задач є напіврозв'язною (має частковий алгоритмічний розв'язок)?",a:{"А":"Задача розв’язування диференціальних рівнянь.","Б":"Задача комівояжера.","В":"Задача рюкзака.","Г":"Задача розв’язування систем лінійних рівнянь."},c:"В"},
+{n:83,q:"Який вираз, написаний мовою SQL, виконує операцію вибору з таблиці &laquo;Persons&raquo; усіх записів, для яких значення поля &laquo;FirstName&raquo; починається на літеру &laquo;A&raquo;, за умови, що дані в полі зберігаються у верхньому регістрі (UpperCase)?",a:{"А":"SELECT * FROM Persons WHERE FirstName LIKE 'A%'.","Б":"SELECT * FROM Persons WHERE FirstName LIKE '%A'.","В":"SELECT * FROM Persons WHERE FirstName='A'.","Г":"SELECT * FROM Persons WHERE FirstName='%A%'."},c:"А"},
+{n:84,q:"За яким полем потрібно створити індекс таблиці &laquo;Customers&raquo;, щоб прискорити виконання наведеного нижче запиту? SELECT First_Name, Last_Name, City, email_address FROM Customers WHERE email_address LIKE &#39;Alex%&#39; GROUP BY Last_Name, City, First_Name, email_address ORDER BY City;",a:{"А":"email_address.","Б":"First_Name.","В":"City.","Г":"Last_Name."},c:"А"},
+{n:85,q:"Яка з наведених задач є задачею класифікації?",a:{"А":"Визначення, чи є електронний лист спамом на основі його змісту та характеристик.","Б":"Прогнозування цін на нерухомість на основі різних характеристик будинку.","В":"Стиснення зображення під час збереження картинки в форматі .png завдяки встановленню палітри в 32 кольори.","Г":"Визначення ефекту впливу фондоозброєності на продуктивність праці."},c:"А"},
+{n:86,q:"Дано таблицю &laquo;Студент&raquo; реляційної бази вказаної структури та змісту.",h:"<p>Дано таблицю «Студент» реляційної бази вказаної структури та змісту.</p><div class=\"table-responsive\"><table style=\"border-collapse:collapse;margin:10px 0;font-size:.85rem\">	<thead style=\"background:var(--bg3)\">		<tr>			<th style=\"border:1px solid var(--br);padding:6px 12px\">Ідентифікатор (число)</th>			<th style=\"border:1px solid var(--br);padding:6px 12px\">Рейтинг (число)</th>			<th style=\"border:1px solid var(--br);padding:6px 12px\">На бюджеті (логічне значення)</th>		</tr>	</thead>	<tbody>		<tr>			<td style=\"border:1px solid var(--br);padding:6px 12px\">1</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">70</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">ні</td>		</tr>		<tr>			<td style=\"border:1px solid var(--br);padding:6px 12px\">2</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">65</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">так</td>		</tr>		<tr>			<td style=\"border:1px solid var(--br);padding:6px 12px\">3</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">93</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">ні</td>		</tr>		<tr>			<td style=\"border:1px solid var(--br);padding:6px 12px\">4</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">85</td>			<td style=\"border:1px solid var(--br);padding:6px 12px\">так</td>		</tr>	</tbody></table></div><p>До цієї таблиці зробили запит:</p><p style=\"font-family:var(--mo);background:var(--bg3);padding:10px;border-radius:6px;font-size:.82rem\">SELECT Ідентифікатор<br> FROM Студент<br>WHERE (Рейтинг > 70 AND Рейтинг < 90) OR [На бюджеті]=true;</p><p><br>Який перелік значень буде повернуто як результат виконання цього запиту?</p>",a:{"А":"\\(2, 4.\\)","Б":"\\(1, 3, 4.\\)","В":"\\(1, 4.\\)","Г":"\\(2, 3, 4.\\)"},c:"А"},
+{n:87,q:"Яке призначення стеганографії?",a:{"А":"Приховування факту передачі інформації.","Б":"Шифрування інформації під час обміну даними.","В":"Захист каналів обміну даними від фізичного доступу.","Г":"Виявлення фактів доступу до каналів обміну даними."},c:"А"},
+{n:88,q:"Що означає термін &laquo;принцип жадібності&raquo; у контексті розроблення алгоритмів?",a:{"А":"Вибір великої кількості кращих варіантів.","Б":"Максимізація кількості ітерацій.","В":"Обирання оптимального варіанта на кожному етапі.","Г":"Максимізація часу пошуку кращого алгоритму."},c:"В"},
+{n:89,q:"Який із запропонованих варіантів є класифікацією системи за походженням?",a:{"А":"Прості, складні.","Б":"Керовані ззовні, самокеровані.","В":"Штучні, природні.","Г":"Пасивні, активні."},c:"В"},
+{n:90,q:"Який каталог є кореневим у файловій системі Linux?",a:{"А":"/.","Б":"/root.","В":"/home.","Г":"/usr."},c:"А"},
+{n:91,q:"Вкажіть склад попередньо порожнього стека (хвіст&rarr;голова) після виконання послідовності команд: push (a), push (b), pop, push (с), push (d), pop.",a:{"А":"[ac].","Б":"[ab].","В":"[bc].","Г":"[dc]."},c:"А"},
+{n:92,q:"Яка пам'ять комп'ютера розташована поза межами процесора?",a:{"А":"Оперативна.","Б":"Регістрова.","В":"Кеш-пам’ять першого рівня.","Г":"Кеш-пам’ять другого рівня."},c:"А"},
+{n:93,q:"Який з наведених варіантів є прикладом задачі класифікації у машинному навчанні?",a:{"А":"Визначення часу роботи процесора.","Б":"Прогнозування ціни акцій.","В":"Розпізнавання зображень котів і собак.","Г":"Оптимізація маршруту доставки товарів."},c:"В"},
+{n:94,q:"Якщо в підмережі потрібно розмістити 64 вузли, якою має бути її маска?",a:{"А":"«255.255.255.64».","Б":"«255.255.255.96».","В":"«255.255.255.128».","Г":"«255.255.255.192»."},c:"В"},
+{n:95,q:"Для чого введено поняття механізму плаваючих статичних маршрутів?",a:{"А":"Для формування резервних з’єднань, що використовуються у випадках, якщо основні з’єднання виходитимуть з ладу.","Б":"Для забезпечення можливості зв’язку з віддаленими мережами, інформації про які немає в таблиці маршрутизації.","В":"Для повноцінної заміни протоколів динамічної маршрутизації, якщо її немає в таблиці маршрутизації.","Г":"З метою зменшення обсягу таблиць маршрутизації та забезпечення сумаризації адрес мереж."},c:"А"},
+{n:96,q:"Яку метрику використовують для сегментації зображень?",a:{"А":"Перетин через об’єднання (IoU).","Б":"Міра індексу структурної подібності (SSIM).","В":"Коефіцієнт детермінації \\((r^2).\\)","Г":"Пікове відношення сигнал/шум (PSNR)."},c:"А"},
+{n:97,q:"Визначте першу похідну \\(\\frac{\\mathrm{d}y(x)}{\\mathrm{d}x}\\) від виразу \\(y(x)=1-\\left(e^{-(a\\cdot x)}\\right)\\) якщо \\(a=const.\\)",a:{"А":"\\(y'(x)=(-a)\\cdot \\left(e^{-(a\\cdot x)}\\right).\\)","Б":"\\(y'(x)=\\left(-\\frac 1a\\right)\\cdot \\left(e^{-(a\\cdot x)}\\right).\\)","В":"\\(y'(x)=\\left(\\frac 1a\\right)\\cdot \\left(e^{-(a\\cdot x)}\\right).\\)","Г":"\\(y'(x)=a\\cdot \\left(e^{-(a\\cdot x)}\\right).\\)"},c:"Г"},
+{n:98,q:"Що є сильним штучним інтелектом?",a:{"А":"Здатність виконати будь-яке завдання, яке може виконати людина.","Б":"Здатність обробити та інтерпретувати емоційну інформацію.","В":"Здатність навчатися та саморозвиватися на основі досвіду та накопичених даних.","Г":"Здатність створити текст на основі аналізу неструктурованих даних."},c:"А"},
+{n:99,q:"Що дає змогу переносити знання з однієї галузі в іншу?",a:{"А":"Використання для опису систем різних конфігураторів.","Б":"Строго доведений ізоморфізм для систем різної природи.","В":"Закон необхідної різноманітності.","Г":"Принцип взаємодії відкритих систем із довкіллям."},c:"Б"},
+{n:100,q:"Яка кібератака має на меті спотворення інформації у таблиці IPv4-вузла, що містить відповідності між адресами мережного та канального рівнів моделі OSI?",a:{"А":"IP-Spoofing.","Б":"MAC-Spoofing.","В":"DNS-Spoofing.","Г":"ARP-Spoofing."},c:"Г"},
+{n:101,q:"Таблиця &laquo;ОсвітаСпівробітників&raquo; використовується для зберігання даних дипломів про здобуту освіту, отриманих співробітниками, і містить первинний ключ &laquo;КодОсвіти&raquo;, зовнішні ключі &laquo;КодСпівробітника&raquo; і &laquo;КодЗакладуОсвіти&raquo; та інші неключові поля.",a:{"А":"GROUP BY КодСпівробітника HAVING Count(КодОсвіти)&gt;1.","Б":"GROUP BY КодЗакладуОсвіти HAVING Count(КодОсвіти)&gt;1.","В":"GROUP BY КодОсвіти HAVING Count(КодСпівробітника)&gt;1.","Г":"GROUP BY КодОсвіти HAVING Count(КодЗакладуОсвіти)&gt;1."},c:"А"},
+{n:102,q:"Що є однією з функцій первинного ключа у реляційній моделі баз даних?",a:{"А":"Побудова таксономії значень атрибутів у відношенні.","Б":"Встановлення співвідношення між вимогами до атрибутів.","В":"Нормалізація атрибутів і формалізація кортежів відношення.","Г":"Формування критеріїв відбору підмножини даних у відношенні."},c:"Г"},
+{n:103,q:"Яким об’єктом є добуток вектора стовпчика \\(\\begin{pmatrix}a_1\\\\a_2\\end{pmatrix}\\) та вектора рядка \\((b_1\\ b_2\\ b_3),\\) тобто \\(\\begin{pmatrix}a_1\\\\a_2\\end{pmatrix}\\cdot (b_1\\ b_2\\ b_3)?\\)",a:{"А":"Вектор рядок.","Б":"Число.","В":"Вектор стовпчик.","Г":"Матриця."},c:"Г"},
+{n:104,q:"Як розпочинається розбиття вхідного масиву А на підмасиви під час роботи методу швидкого сортування (Quick Sort)?",a:{"А":"Вибір випадкового (опорного) елемента. Після чого всі елементи менші за опорний елемент переміщаються у лівий підмасив, а всі більші ‒ в правий.","Б":"Вибір випадкового (опорного) елемента. Після чого масив A розбивається на два підмасиви. Лівий підмасив містить усі елементи включно з опорним, правий – решту елементів.","В":"Вибір двох підмасивів. Лівий підмасив містить усі елементи до опорного елемента, а правий – решту елементів включно з опорним елементом.","Г":"Розбиття масиву A на два підмасиви однакової розмірності. Після чого в кожному з них здійснюється вибір випадкового (опорного) елемента."},c:"А"},
+{n:105,q:"Як називають штучний інтелект, що зосереджується на імітації того, як людина виконує базові дії, як-от запам'ятовування даних, сприйняття фактів і розв'язання простих проблем?",a:{"А":"Слабкий.","Б":"Сильний.","В":"Глибокий.","Г":"Генеративний."},c:"А"},
+{n:106,q:"Яку з функцій НЕ виконує інтерфейсна схема пристроїв введення-виведення?",a:{"А":"Декодування адреси пристрою (номеру пристрою), який надходить з процесора.","Б":"Забезпечення взаємодії з контролером пристрою введення-виведення.","В":"Синхронізація потоку даних та контроль швидкості передавання даних між пристроями.","Г":"Формування протоколу обміну для зв’язку між зовнішніми і внутрішніми пристроями комп’ютера."},c:"Г"},
+{n:107,q:"Що є домінантою стримування зростання робочої частоти чипів?           1. Неможливість традиційного відведення теплової потужности з чипу.           2. Неможливість виготовлення чипів нових розробок у Земних умовах.         3. Обмежені обчислювальні ресурси конструкторських бюро.         4. Обмежені можливості ринку збуту.",a:{"А":"\\(1\\)","Б":"\\(2\\)","В":"\\(3\\)","Г":"\\(4\\)"},c:"А"},
+{n:108,q:"Яка з наведених дій дає змогу покращити реактивність операційної системи реального часу?",a:{"А":"Використання асинхронних операцій.","Б":"Оптимізація роботи процесора.","В":"Збільшення обсягу оперативної пам’яті.","Г":"Використання синхронних операцій."},c:"А"},
+{n:109,q:"Який з наведених криптографічних алгоритмів є криптографічною геш-функцією?",a:{"А":"«СТРУМОК» (ДСТУ 8845:2019).","Б":"«Калина» (ДСТУ 7624:2014).","В":"«Купина» (ДСТУ 7564:2014).","Г":"«Rijndael» (AES)."},c:"В"},
+{n:110,q:"Який оператор стандарту SQL:2016 використовується для надання прав доступу користувачам до об'єктів бази даних?",a:{"А":"GRANT.","Б":"ALLOW.","В":"PERMISSION.","Г":"ACCESS."},c:"А"},
+{n:111,q:"Для чого використовують гіперплощину у контексті опорних векторних машин (SVM)?",a:{"А":"Максимізації відстані між найближчими точками різних класів.","Б":"Мінімізації кількості опорних векторів.","В":"Знаходження найкращого розподілу точок у просторі.","Г":"Зменшення розмірності даних перед класифікацією."},c:"А"},
+{n:112,q:"Яка модель даних передбачає нормалізацію таблиць, що в неї входять?",a:{"А":"Логічна.","Б":"Концептуальна.","В":"Фізична.","Г":"ER-модель."},c:"А"},
+{n:113,q:"До якої з перерахованих мережних топологій належить мережа, наведена на рисунку?",h:"<p>До якої з перерахованих мережних топологій належить мережа, наведена на рисунку?</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/113.png\"  width=\"303\" style=\"height: auto;\"  /></p>",a:{"А":"Кільце (ring).","Б":"Шина (bus).","В":"Дерево (tree).","Г":"Зірка (star)."},c:"Г"},
+{n:114,q:"Яку функцію виконує лазерний промінь у лазерному принтері?",a:{"А":"Формування зображення на фоточутливому барабані.","Б":"Нагрівання та розплавлення тонера на папері.","В":"Нанесення кольорового зображення на папір.","Г":"Позиціювання друкувальної головки принтера."},c:"А"},
+{n:115,q:"Яка програма приймає на вхід один або кілька об'єктних модулів і збирає їх в один виконуваний модуль?",a:{"А":"Компілятор.","Б":"Інтерпретатор.","В":"Компонувальник.","Г":"Лексичний аналізатор."},c:"В"},
+{n:116,q:"Якщо об’єкт \\(a\\) може бути вибраний \\(m\\) способами, а об’єкт \\(b,\\) у свою чергу, може бути вибраний іншими \\(n\\) способами, то скількома способами можна обрати будь-який з цих об’єктів?",a:{"А":"\\(mn.\\)","Б":"\\(m+n.\\)","В":"\\(m-n.\\)","Г":"\\(m!n!.\\)"},c:"Б"},
+{n:117,q:"Мережу з якою IP-адресою визначає IPv4-адреса 121.14.32.77/16?",a:{"А":"121.14.0.0/16.","Б":"121.14.32.0/16.","В":"121.14.32.16/16.","Г":"121.14.16.16/16."},c:"А"},
+{n:118,q:"Що покладено в основу процедурного програмування?",a:{"А":"Класи та об’єкти.","Б":"Функції та дані.","В":"Наслідування та інкапсуляція.","Г":"Події та обробники подій."},c:"Б"},
+{n:119,q:"Який вихідний степінь (VertexOutDegree(V2)) має вершина V2 наведеного орграфа?",h:"<p>Який вихідний степінь (VertexOutDegree(V2)) має вершина V2 наведеного орграфа?</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/119.png\"  width=\"306\" style=\"height: auto;\"  /></p>",a:{"А":"\\(1.\\)","Б":"\\(3.\\)","В":"\\(4.\\)","Г":"\\(2.\\)"},c:"Г"},
+{n:120,q:"Яка операція була виконана над множинами: а=(true, false, false, false, true, true, false, true) і b=(true, false, true, true, true, false, false, false), якщо як результат отримано множину с=(false, false, true, true, false, true, false, true)?",a:{"А":"Перетин множин.","Б":"Об’єднання множин.","В":"Різниця множин.","Г":"Диз’юнктивна сума множин."},c:"Г"},
+{n:121,q:"Які основні компоненти структури комп'ютера згідно з класичною архітектурою фон Неймана?",a:{"А":"Арифметико-логічний пристрій, пам’ять, пристрої введення-виведення, система керування.","Б":"Процесор, системна плата, пристрої введення-виведення, жорсткий диск.","В":"Арифметико-логічний пристрій, регістри, пристрої введення-виведення, жорсткий диск.","Г":"Процесор, оперативна пам’ять, пристрої введення-виведення, накопичувачі даних."},c:"А"},
+{n:122,q:"З чого починається первинна обробка даних?",a:{"А":"Вибору підмножини даних для подальшого дослідження.","Б":"Вибору залежних ознак.","В":"Очищення та структурування.","Г":"Видалення шуму."},c:"В"},
+{n:123,q:"Що в обчислювальній складності алгоритму \\(\\mathrm{O(n)}\\) прийнято позначати літерою \\(n?\\)",a:{"А":"Кількість вхідних даних.","Б":"Кількість дій, які виконує алгоритм.","В":"Кількість функцій, що є в алгоритмі.","Г":"Кількість часу для виконання алгоритму."},c:"А"},
+{n:124,q:"Як називається принцип інженерно-технічного захисту інформації, який передбачає прогнозування дій зловмисника?",a:{"А":"Безперервність.","Б":"Активність.","В":"Скритність.","Г":"Цілеспрямованість."},c:"Б"},
+{n:125,q:"Яку назву мають спеціальні елементи пам'яті, що призначені для тимчасового зб��рігання процесором інструкцій та інформації?",a:{"А":"Регістр.","Б":"Сторінка.","В":"Буфер.","Г":"Комірка."},c:"А"},
+{n:126,q:"Що залишиться в черзі після виконання цього коду?",h:"<p>Що залишиться в черзі після виконання цього коду?</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/126.png\"  width=\"390\" style=\"height: auto;\"  /></p>",a:{"А":"\\(0.\\)","Б":"\\(1.\\)","В":"\\(2.\\)","Г":"Нічого."},c:"В"},
+{n:127,q:"Яка з наведених складностей є найбільшою інформаційною проблемою для інтернету речей?",a:{"А":"Висока вартість пристроїв.","Б":"Необхідність в спеціальних навичках для налаштування.","В":"Небезпека кібератак.","Г":"Несумісність пристроїв різних виробників."},c:"В"},
+{n:128,q:"До якого класу обчислювальних систем, за класифікацією Флінна, належать кластери?",a:{"А":"SISD (single instructions ‒ single data) ‒ одиночний потік команд та одиночний потік даних.","Б":"SIMD (single instructions ‒ multiple data) ‒ одиночний потік команд та множинний потік даних.","В":"MISD (multiple instructions ‒ single data) ‒ множинний потік команд та одиночний потік даних.","Г":"MIMD (multiple instructions ‒ multiple data) ‒ множинний потік команд та множинний потік даних."},c:"Г"},
+{n:129,q:"Що розуміють під навчанням штучної нейронної мережі?",a:{"А":"Процес зміни вагових коефіцієнтів за певним правилом.","Б":"Визначення типу активаційної функції для кожного нейрона.","В":"Розбиття початкової вибірки даних на навчальну та контрольну вибірки.","Г":"Нормування вхідних і вихідних даних."},c:"А"},
+{n:130,q:"Яка основна перевага використання багатокористувацької операційної системи на сервері?",a:{"А":"Зниження витрат на обладнання та інфраструктуру для підтримки багатокористувацького режиму.","Б":"Підвищення продуктивності одного користувача.","В":"Одночасний доступ кількох користувачів до ресурсів системи.","Г":"Покращена підтримка периферійних пристроїв."},c:"В"},
+{n:131,q:"Визначте значення суми за модулем два двійкових чисел \\(10010100\\) та \\(11001101.\\)",a:{"А":"\\(01011001.\\)","Б":"\\(10000100.\\)","В":"\\(11011101.\\)","Г":"\\(00100010.\\)"},c:"А"},
+{n:132,q:"Як називається шкідливе програмне забезпечення, призначене для збирання та передавання особистої інформації з використанням маскування без можливості поширюватися, копіювати або інфікувати файли?",a:{"А":"Troyan.","Б":"Virus.","В":"Worm.","Г":"Rootkit."},c:"А"},
+{n:133,q:"Яка властивість бази даних вказує на те, що дані достовірні, несуперечливі й надійні?",a:{"А":"Цілісність (Integrity).","Б":"Відношення (Relation).","В":"Індексація (Indexing).","Г":"Повнота (completeness)."},c:"А"},
+{n:134,q:"Які вершини обходяться першими під час виконання алгоритму пошуку в ширину (BFS)?",a:{"А":"Ті, що мають найменші BFS-номери.","Б":"Ті, що є суміжними із стартовою вершиною.","В":"Ті, що є інцидентними до ребер з найбільшою вагою.","Г":"Ті, що є інцидентними до ребер з найменшою вагою."},c:"Б"},
+{n:135,q:"Що є кластером записів?",a:{"А":"Логічний запис, що складається з одного або декількох фізичних блоків.","Б":"Фізичний блок, що складається з 512 байтів.","В":"Сукупність логічних записів, що об’єднуються в один файл.","Г":"Мінімальний елемент даних, з яким може оперувати програміст."},c:"А"},
+{n:136,q:"Зв'язок якого типу відображає взаємодію між класами, коли один клас визначає правила, яких має дотримуватися інший клас?",a:{"А":"Асоціація.","Б":"Спадкування.","В":"Залежність.","Г":"Реалізація."},c:"Г"},
+{n:137,q:"Який принцип кібербезпеки вказує на необхідність забезпечення правдивості та відкритості даних?",a:{"А":"Принцип доступності.","Б":"Принцип конфіденційності.","В":"Принцип цілісності.","Г":"Принцип автентифікації."},c:"В"},
+{n:138,q:"Яку з моделей кібербезпеки застосовують зловмисники на противагу моделі CIA (Confidentiality, Integrity, Availability)?",a:{"А":"DAD (Disclosure, Alteration, Denial).","Б":"MAC (Mandatory Access Control).","В":"DAC (Discretionary Access Control).","Г":"IKE (Internet Key Exchange)."},c:"А"},
+{n:139,q:"Що таке логічна організація файлів у контексті файлової системи?",a:{"А":"Розташування файлів на фізичних секторах носія.","Б":"Структура і спосіб доступу до даних, який бачить користувач або програма.","В":"Процес резервного копіювання файлів.","Г":"Метод стиснення файлів для зменшення їх розміру."},c:"Б"},
+{n:140,q:"Виконайте пошук в глибину (DFS), починаючи з вершини A.",h:"<p>Виконайте пошук в глибину (DFS), починаючи з вершини A.</p><p><img alt=\"\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" src=\"img/140.png\" style=\"max-width:400px;background:#fff;padding:10px;border-radius:8px;margin:10px 0\" /></p><p>Який правильний порядок обходу вершин?</p>",a:{"А":"A, B, D, F, E, C.","Б":"A, C, E, F, B, D.","В":"A, B, E, F, D, C.","Г":"A, F, E, B, D, C."},c:"А"},
+];
+
+var exLoaded=false,exCur=0,exAnswers={},exChecked={};
+
+function exInit(){
+  exLoaded=true;
+  var nav=document.getElementById('examNav');
+  nav.innerHTML='';
+  for(var i=0;i<examQuestions.length;i++){
+    var b=document.createElement('button');
+    b.textContent=(i+1);
+    b.className='ex-nb';
+    b.onclick=(function(idx){return function(){exShow(idx);};})(i);
+    nav.appendChild(b);
+  }
+  exShow(0);
+}
+
+function exShow(idx){
+  exCur=idx;
+  var q=examQuestions[idx];
+  var c=document.getElementById('examCard');
+  var html='<div class="exam-card">';
+  html+='<div class="eq-num">Питання '+(idx+1)+' з '+examQuestions.length+'</div>';
+  html+='<div class="eq-text">'+(q.h||q.q)+'</div>';
+  var keys=Object.keys(q.a);
+  for(var i=0;i<keys.length;i++){
+    var k=keys[i];
+    var cls='exam-opt';
+    var checked=exAnswers[idx]===k?'sel':'';
+    if(exChecked[idx]){
+      if(k===q.c)cls='exam-opt correct';
+      else if(exAnswers[idx]===k)cls='exam-opt wrong';
+      checked='';
+    }
+    html+='<div class="'+cls+' '+checked+'" onclick="exSel('+idx+',\''+k+'\')"><b>'+k+'</b>. '+q.a[k]+'</div>';
+  }
+  html+='<div class="exam-fb" id="exFb"></div>';
+  html+='</div>';
+  c.innerHTML=html;
+  if(exChecked[idx])exShowFb(idx);
+  exUpdateNav();
+  document.getElementById('exPrev').disabled=(idx===0);
+  document.getElementById('exNext').disabled=(idx===examQuestions.length-1);
+  if(window.MathJax&&window.MathJax.typesetPromise){MathJax.typesetPromise([document.getElementById('examCard')]);}
+}
+
+function exSel(idx,key){
+  if(exChecked[idx])return;
+  exAnswers[idx]=key;
+  exShow(idx);
+}
+
+function exCheck(){
+  if(exAnswers[exCur]===undefined){alert('Обери відповідь!');return;}
+  exChecked[exCur]=true;
+  exShow(exCur);
+  exUpdateStats();
+}
+
+function exShowFb(idx){
+  var q=examQuestions[idx];
+  var fb=document.getElementById('exFb');
+  if(!fb)return;
+  var ok=exAnswers[idx]===q.c;
+  fb.className='exam-fb show '+(ok?'ok':'bad');
+  var html='<b>'+(ok?'✅ Правильно!':'❌ Неправильно.')+'</b><br>';
+  html+='Правильна відповідь: <b>'+q.c+'</b>. '+q.a[q.c]+'<br>';
+  if(!ok&&exAnswers[idx])html+='Ти обрав: '+exAnswers[idx]+'. '+q.a[exAnswers[idx]]+'<br>';
+  html+='<br><i>'+exExplain(idx)+'</i>';
+  fb.innerHTML=html;
+}
+
+function exExplain(idx){
+  var q=examQuestions[idx];
+  var t=q.q.toLowerCase();
+  var c=q.a[q.c];
+  if(t.includes('big o')||t.includes('складність')||t.includes('o(')) return 'Складність алгоритму оцінюється за тим, як зростає час виконання при збільшенні обсягу вхідних даних. '+(c);
+  if(t.includes('uml')) return 'UML (Unified Modeling Language) — стандартизована мова візуального моделювання. '+c;
+  if(t.includes('sql')) return 'SQL (Structured Query Language) — мова запитів до реляційних баз даних. '+c;
+  if(t.includes('рекурс')||t.includes('recursi')) return 'Рекурсія — це коли функція викликає саму себе. Обов\'язково потрібен базовий випадок для зупинки. '+c;
+  if(t.includes('граф')||t.includes('dfs')||t.includes('bfs')||t.includes('обхід')) return 'DFS йде вглиб (через стек/рекурсію), BFS — по рівнях (через чергу). '+c;
+  if(t.includes('oop')||t.includes('ооп')||t.includes('об\'єкт')||t.includes('інкапсул')||t.includes('поліморф')||t.includes('спадкув')||t.includes('абстракц')) return 'ООП базується на 4 принципах: інкапсуляція, спадкування, поліморфізм, абстракція. '+c;
+  if(t.includes('шифру')||t.includes('крипт')||t.includes('геш')||t.includes('підпис')||t.includes('rsa')||t.includes('aes')) return 'Криптографія: симетричні алгоритми (AES, DES) використовують один ключ, асиметричні (RSA) — пару ключів. '+c;
+  if(t.includes('мереж')||t.includes('tcp')||t.includes('udp')||t.includes('ip')||t.includes('osi')||t.includes('порт')||t.includes('dns')) return 'Мережеві протоколи: TCP — надійна доставка, UDP — швидка без гарантій. OSI має 7 рівнів. '+c;
+  if(t.includes('баз')||t.includes('sql')||t.includes('join')||t.includes('ключ')||t.includes('нормал')) return 'Бази даних: нормалізація зменшує надлишковість, JOIN об\'єднує таблиці, Primary Key унікально ідентифікує запис. '+c;
+  if(t.includes('машинн')||t.includes('навчан')||t.includes('нейрон')||t.includes('модель')||t.includes('класифікац')||t.includes('кластер')||t.includes('регрес')) return 'Машинне навчання: supervised — з розміченими даними, unsupervised — без. Overfitting — перенавчання. '+c;
+  if(t.includes('agile')||t.includes('scrum')||t.includes('sprint')||t.includes('backlog')) return 'Agile/Scrum — гнучкі методології. Scrum: спринти, Product Owner, Scrum Master, беклог. '+c;
+  if(t.includes('docker')||t.includes('контейнер')||t.includes('cloud')||t.includes('saas')||t.includes('paas')||t.includes('iaas')) return 'Хмарні технології: IaaS — інфраструктура, PaaS — платформа, SaaS — ПЗ як сервіс. Docker — контейнеризація. '+c;
+  if(t.includes('git')||t.includes('commit')||t.includes('push')||t.includes('версій')) return 'Git: commit — зберегти локально, push — відправити на сервер, pull — завантажити. '+c;
+  if(t.includes('тестув')||t.includes('test')||t.includes('unit')||t.includes('ci/cd')) return 'Тестування: unit — окремі модулі, integration — взаємодія. CI/CD — автоматизація. '+c;
+  if(t.includes('патерн')||t.includes('singleton')||t.includes('observer')||t.includes('factory')||t.includes('solid')) return 'Патерни проєктування — перевірені рішення. SOLID — принципи ООП. '+c;
+  if(t.includes('стек')||t.includes('черга')||t.includes('lifo')||t.includes('fifo')) return 'Стек — LIFO (останній прийшов, перший вийшов). Черга — FIFO (перший прийшов, перший вийшов). '+c;
+  if(t.includes('дерев')||t.includes('бінарн')||t.includes('bst')) return 'Бінарне дерево пошуку: лівий нащадок < батько < правий. Збалансоване — O(log n). '+c;
+  if(t.includes('хеш')||t.includes('hash')) return 'Хеш-таблиця: ключ → значення через хеш-функцію. Доступ O(1) у середньому. '+c;
+  if(t.includes('безпек')||t.includes('xss')||t.includes('csrf')||t.includes('ddos')||t.includes('ін\'єкц')) return 'Веб-безпека: XSS — впровадження скриптів, CSRF — підробка запитів, SQL-ін\'єкція — вставка SQL-коду. '+c;
+  if(t.includes('python')||t.includes('list')||t.includes('dict')||t.includes('tuple')||t.includes('set')) return 'Python: list — змінний, tuple — незмінний, dict — ключ-значення, set — унікальні. '+c;
+  if(t.includes('операційн')||t.includes('ос ')||t.includes('linux')||t.includes('сигнал')||t.includes('sigkill')) return "ОС: керує ресурсами, процесами, пам'яттю. SIGKILL — примусове завершення, SIGTERM — коректне. "+c;
+  if(t.includes('файл')||t.includes('файлов')) return 'Файлова система: логічна організація — як користувач бачить файли, фізична — розташування на диску. '+c;
+  if(t.includes('компіл')||t.includes('інтерпрет')||t.includes('мова')) return 'Компільовані мови (C++, Go) — перекладаються в машинний код заздалегідь. Інтерпретовані (Python, JS) — виконуються рядок за рядком. '+c;
+  return 'Правильна відповідь: '+q.c+'. '+c;
+}
+
+function exNav(dir){
+  exShow(Math.max(0,Math.min(examQuestions.length-1,exCur+dir)));
+}
+
+function exUpdateNav(){
+  var btns=document.querySelectorAll('#examNav button');
+  for(var i=0;i<btns.length;i++){
+    btns[i].className='ex-nb';
+    if(i===exCur)btns[i].classList.add('cur');
+    if(exChecked[i]){
+      if(exAnswers[i]===examQuestions[i].c)btns[i].classList.add('done');
+      else btns[i].classList.add('wrong');
+    }
+  }
+}
+
+function exUpdateStats(){
+  var answered=0,correct=0,wrong=0;
+  for(var i=0;i<examQuestions.length;i++){
+    if(exChecked[i]){
+      answered++;
+      if(exAnswers[i]===examQuestions[i].c)correct++;
+      else wrong++;
+    }
+  }
+  document.getElementById('exAnswered').textContent=answered;
+  document.getElementById('exCorrect').textContent=correct;
+  document.getElementById('exWrong').textContent=wrong;
+  exUpdateNav();
+}
+</script>
+</body>
+</html>
